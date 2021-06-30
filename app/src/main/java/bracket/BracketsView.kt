@@ -6,8 +6,11 @@ import com.example.tournamenttool.R
 
 class BracketsView(context: Context): ConstraintLayout(context) {
 
-   init {
+
+    init {
        inflate(context, R.layout.bracket_layout, this)
+
    }
+
 
 }

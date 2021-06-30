@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/navigation">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:id="@+id/navigation"
+            app:startDestination="@id/welcomeFragment">
 
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="title.WelcomeFragment"
+        android:label="WelcomeFragment">
+        <action
+            android:id="@+id/action_welcome_to_brackets"
+            app:destination="@id/bracketsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bracketsFragment"
+        android:name="bracket.BracketsFragment"
+        android:label="BracketsFragment" >
+        <argument
+            android:name="number_of_teams"
+            app:argType="integer" />
+    </fragment>
 </navigation>
