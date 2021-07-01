@@ -18,7 +18,7 @@ class WelcomeFragment: Fragment() {
         val rootView: View = inflater.inflate(R.layout.fragment_welcome_layout, container, false)
         val submitButton = rootView.findViewById<View>(R.id.submit_button) as Button
         val spinner = rootView.findViewById<View>(R.id.number_of_teams_spinner) as Spinner
-        var items = arrayOf(1, 2, 3, 4, 5, 6)
+        var items = arrayOf( 2, 3, 4, 5, 6,7,8,9,10)
         val adapter: ArrayAdapter<Int> = ArrayAdapter<Int>(requireActivity(), android.R.layout.simple_spinner_item, items)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter

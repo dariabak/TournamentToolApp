@@ -1,7 +1,6 @@
 package bracket
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.tournamenttool.R
 import kotlinx.android.synthetic.main.bracket_layout.view.*
-import kotlin.math.floor
+import kotlin.math.ceil
 import kotlin.math.log
 import kotlin.math.pow
+
 
 class BracketsFragment : Fragment() {
 
@@ -33,20 +33,15 @@ class BracketsFragment : Fragment() {
         return rootView
     }
     private fun createBrackets(text: String, numberOfTeams: Int) {
-        var fullMatches = 0
-        var log = log(numberOfTeams.toDouble(), 2.toDouble())
-        var x = floor(log)
-        var two = 2.toDouble()
-        var pow = two.pow(x.toDouble()).toInt()
+        var numberOfBrackets = 0
+        var log = log(numberOfTeams.toDouble(), 2.0)
+        var x = ceil(log) - 1.0
 
-        fullMatches = if(pow == numberOfTeams){
-            numberOfTeams/2
-        } else {
-            numberOfTeams - two.pow(x.toDouble()).toInt()
-        }
+        numberOfBrackets = 2.0.pow(x).toInt()
+        var array = ArrayList<BracketsView>()
         var j = 1
 
-        for(i in 1..fullMatches){
+        for(i in 1..numberOfBrackets){
             val bracket = BracketsView(requireActivity())
 
             val params = ConstraintLayout.LayoutParams(
@@ -55,31 +50,19 @@ class BracketsFragment : Fragment() {
             )
             params.setMargins(0,0 + 200*j , 0, 0)
             bracket.layoutParams = params
-            bracket.team1.text = text
-            bracket.team2.text = text
-
+            bracket.team1.text = bracket.getMidY().toString()
+            bracket.team2.text = "22222"
+            array.add(bracket)
+            bracket.setId(array.size)
             layout.addView(bracket)
             j+=1
         }
-        var emptyMatches = numberOfTeams- 2*fullMatches
-        for(i in 1..emptyMatches){
-            val bracket = BracketsView(requireActivity())
 
-            val params = ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
-            )
+        var lp = array.get(1).getLayoutParams() as  ViewGroup.MarginLayoutParams
+        var viewX = lp.topMargin
 
-            params.setMargins(0,0 + 200*j , 0, 0)
-            bracket.layoutParams = params
-            bracket.team1.text = text
-            bracket.team2.text = ""
-
-            layout.addView(bracket)
-            j+=1
-        }
         var k = 1
-        var secondStage = (fullMatches + emptyMatches)/2
+        var secondStage = numberOfBrackets/2
 
         for(i in 1..secondStage){
             val bracket = BracketsView(requireActivity())
@@ -89,13 +72,14 @@ class BracketsFragment : Fragment() {
                 ConstraintLayout.LayoutParams.WRAP_CONTENT
             )
 
-            params.setMargins(200,0 + 300*k , 0, 0)
+            params.setMargins(200, 0 + 300*k , 0, 0)
             bracket.layoutParams = params
             bracket.team1.text = text
-            bracket.team2.text = ""
-            k+=1.5
+            bracket.team2.text = "222222"
+            k+=2
             layout.addView(bracket)
         }
 
     }
+
 }
