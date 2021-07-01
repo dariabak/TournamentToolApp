@@ -39,46 +39,37 @@ class BracketsFragment : Fragment() {
 
         numberOfBrackets = 2.0.pow(x).toInt()
         var array = ArrayList<BracketsView>()
-        var j = 1
+        var j = 0
 
         for(i in 1..numberOfBrackets){
-            val bracket = BracketsView(requireActivity())
-
-            val params = ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
-            )
-            params.setMargins(0,0 + 200*j , 0, 0)
-            bracket.layoutParams = params
-            bracket.team1.text = bracket.getMidY().toString()
-            bracket.team2.text = "22222"
+            val bracket = BracketsView(requireActivity(), 0, 200)
             array.add(bracket)
             bracket.setId(array.size)
             layout.addView(bracket)
             j+=1
         }
 
-        var lp = array.get(1).getLayoutParams() as  ViewGroup.MarginLayoutParams
-        var viewX = lp.topMargin
+//        var lp = array.get(1).getLayoutParams() as  ViewGroup.MarginLayoutParams
+//        var viewX = lp.topMargin
 
-        var k = 1
-        var secondStage = numberOfBrackets/2
-
-        for(i in 1..secondStage){
-            val bracket = BracketsView(requireActivity())
-
-            val params = ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
-            )
-
-            params.setMargins(200, 0 + 300*k , 0, 0)
-            bracket.layoutParams = params
-            bracket.team1.text = text
-            bracket.team2.text = "222222"
-            k+=2
-            layout.addView(bracket)
-        }
+//        var k = 1
+//        var secondStage = numberOfBrackets/2
+//
+//        for(i in 1..secondStage){
+//            val bracket = BracketsView(requireActivity())
+//
+//            val params = ConstraintLayout.LayoutParams(
+//                ConstraintLayout.LayoutParams.WRAP_CONTENT,
+//                ConstraintLayout.LayoutParams.WRAP_CONTENT
+//            )
+//
+//            params.setMargins(200, 0 + 300*k , 0, 0)
+//            bracket.layoutParams = params
+//            bracket.team1.text = text
+//            bracket.team2.text = "222222"
+//            k+=2
+//            layout.addView(bracket)
+//        }
 
     }
 

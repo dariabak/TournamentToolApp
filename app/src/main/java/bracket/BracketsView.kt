@@ -3,13 +3,22 @@ package bracket
 import android.content.Context
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.tournamenttool.R
+import kotlinx.android.synthetic.main.bracket_layout.view.*
 
 
-class BracketsView(context: Context): ConstraintLayout(context) {
+class BracketsView(context: Context, leftMargin: Int, topMargin: Int): ConstraintLayout(context) {
 
     init {
        inflate(context, R.layout.bracket_layout, this)
+        val params = LayoutParams(
+            LayoutParams.WRAP_CONTENT,
+            LayoutParams.WRAP_CONTENT
+        )
 
+        params.setMargins(leftMargin,0 + topMargin, 0, 0)
+        this.layoutParams = params
+        this.team1.text = this.getMidY().toString()
+        this.team2.text = "22222"
    }
 
     fun getMidY(): Int {
@@ -19,15 +28,8 @@ class BracketsView(context: Context): ConstraintLayout(context) {
             // vertical space requirements as imposed by the parent
             0 // heightMeasureSpec
         )
-
-        val midY = measuredHeight/2
-        // the raw measured height of this view
-        return midY
-    }
-    fun getLocation():IntArray {
-        val location: IntArray = IntArray(2)
-        this.getLocationOnScreen(location)
-        return location
+        // return the raw measured height of this view
+        return measuredHeight / 2
     }
 
 }
