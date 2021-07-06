@@ -19,7 +19,7 @@ class BracketLineView(context: Context): View(context) {
         super.onDraw(canvas)
         var width = this.width.toFloat()
         var height = this.height.toFloat()
-        paint.strokeWidth = 4f
+        paint.strokeWidth = 5f
         path.moveTo(0f, 0f)
         path.lineTo(width/2f, 0f)
         path.lineTo(width/2f, height)
