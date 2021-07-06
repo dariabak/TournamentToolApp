@@ -12,7 +12,7 @@ class BracketLineView(context: Context): View(context) {
 
     init {
         paint.style = Paint.Style.STROKE
-        paint.color = Color.RED
+        paint.color = Color.BLACK
     }
 
    override fun onDraw(canvas: Canvas) {

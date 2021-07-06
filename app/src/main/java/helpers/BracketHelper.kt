@@ -65,7 +65,7 @@ class BracketHelper {
                         var topMargin2 = layoutParam2.topMargin
 
                         val newMargin = (topMargin1 + topMargin2) / 2
-                        bracket.setLayoutParams(leftMargin + 230, newMargin)
+                        bracket.setLayoutParams(leftMargin + (100* MyApp.density).toInt(), newMargin)
                         
                     }
 
