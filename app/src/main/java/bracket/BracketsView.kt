@@ -24,6 +24,18 @@ class BracketsView(context: Context, val bracketPosition: BracketPosition): Cons
         // return the raw measured height of this view
         return measuredHeight / 2
     }
+
+    fun getViewWidth(): Int {
+        measure(
+            // horizontal space requirements as imposed by the parent
+            0, // widthMeasureSpec
+            // vertical space requirements as imposed by the parent
+            0 // heightMeasureSpec
+        )
+        // return the raw measured height of this view
+        return measuredWidth
+    }
+
      fun setLayoutParams(leftMargin: Int, topMargin: Int) {
          val params = FrameLayout.LayoutParams(
              FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -33,6 +45,6 @@ class BracketsView(context: Context, val bracketPosition: BracketPosition): Cons
          params.setMargins(leftMargin, topMargin, 0, 0)
          this.layoutParams = params
          this.team1.text = this.getMidY().toString()
-         this.team2.text = "22222"
+         this.team2.text = "22222222222"
      }
 }

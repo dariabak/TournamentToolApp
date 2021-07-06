@@ -23,7 +23,6 @@ class WelcomeFragment: Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
 
-
         submitButton.setOnClickListener{
           val numberOfTeams =  spinner.selectedItem as Int
             rootView.findNavController().navigate(WelcomeFragmentDirections.actionWelcomeToBrackets(numberOfTeams))
