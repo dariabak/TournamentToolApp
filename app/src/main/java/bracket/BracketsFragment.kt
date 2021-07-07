@@ -24,12 +24,12 @@ class BracketsFragment : Fragment() {
 
         val args = BracketsFragmentArgs.fromBundle(requireArguments())
         val numberOfTeams = args.numberOfTeams
-        createBrackets("111111", numberOfTeams)
+        createBrackets(numberOfTeams)
 
         return rootView
     }
 
-    private fun createBrackets(text: String, numberOfTeams: Int) {
+    private fun createBrackets(numberOfTeams: Int) {
         val array = BracketHelper.getBracketPosition(numberOfTeams)
         var bracketsArray = ArrayList<BracketsView>()
         var bracketLinesArray = ArrayList<BracketLineView>()
@@ -45,6 +45,7 @@ class BracketsFragment : Fragment() {
             bracketLinesArray.add(line)
             layout.addView(line)
         }
+        BracketHelper.setTeamsNames(numberOfTeams, bracketsArray)
         BracketHelper.positionBrackets(bracketsArray)
         BracketHelper.positionBracketLines(bracketLinesArray, bracketsArray)
 

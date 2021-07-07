@@ -44,7 +44,13 @@ class BracketsView(context: Context, val bracketPosition: BracketPosition): Cons
 
          params.setMargins(leftMargin, topMargin, 0, 0)
          this.layoutParams = params
-         this.team1.text = this.getMidY().toString()
-         this.team2.text = "22222222222"
      }
+
+    fun setTeam1(team: String) {
+        this.team1.text = team
+    }
+
+    fun setTeam2(team: String) {
+        this.team2.text = team
+    }
 }

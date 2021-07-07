@@ -7,6 +7,7 @@ import kotlin.math.ceil
 import kotlin.math.log
 import kotlin.math.pow
 import kotlin.math.abs
+import kotlin.random.Random
 
 class BracketHelper {
     companion object{
@@ -30,6 +31,7 @@ class BracketHelper {
                 }
                 col += 1
             } while(numberOfBrackets != 0)
+
          return bracketsPositionArrayList
         }
 
@@ -66,7 +68,6 @@ class BracketHelper {
 
                         val newMargin = (topMargin1 + topMargin2) / 2
                         bracket.setLayoutParams(leftMargin + (100* MyApp.density).toInt(), newMargin)
-                        
                     }
 
                 }
@@ -109,6 +110,28 @@ class BracketHelper {
                 lines.get(j+1).scaleY = -1f
                 j += 2
             }
+        }
+
+        fun setTeamsNames(numberOfTeams: Int, brackets: ArrayList<BracketsView>) {
+            var teamsArray = ArrayList<String>()
+            for(i in 1..numberOfTeams) {
+                teamsArray.add("Team $i")
+            }
+            var index = ArrayList<Int>()
+            teamsArray.shuffle()
+            var bracketsInFirstColumn = (brackets.size + 1)/2
+            for(i in bracketsInFirstColumn - 1 downTo 0) {
+                brackets.get(i).setTeam1(teamsArray.get(i))
+                teamsArray.removeAt(i)
+                index.add(i)
+            }
+
+            index.shuffle()
+            for(team in teamsArray){
+                brackets.get(index.get(0)).setTeam2(team)
+                index.remove(index.get(0))
+            }
+
         }
     }
 }
