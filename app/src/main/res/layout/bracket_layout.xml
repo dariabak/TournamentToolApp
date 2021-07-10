@@ -10,10 +10,12 @@
             type="bracket.BracketView" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/bracket"
     android:layout_width="60dp"
     android:layout_height="55dp"
     android:background="@drawable/border"
-    android:onClick="@{() -> BracketView.clickListener()}">
+    android:clickable="true"
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/first_team_layout"
@@ -37,7 +39,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:ellipsize="end"
-            android:maxLines="1"/>
+            android:maxLines="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

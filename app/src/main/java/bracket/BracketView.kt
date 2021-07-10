@@ -15,12 +15,16 @@ import android.view.LayoutInflater
 
 class BracketView(context: Context, val bracketPosition: BracketPosition): ConstraintLayout(context) {
     private var binding: BracketLayoutBinding
+    var layout: ConstraintLayout
 
     init {
         inflate(context, R.layout.bracket_layout, this)
         val inflater: LayoutInflater = LayoutInflater.from(context)
         binding = DataBindingUtil.inflate(inflater, R.layout.bracket_layout,this , true)
-   }
+        binding.bracket.setOnClickListener {
+            clickListener()
+        }
+    }
 
     fun getMidY(): Int {
         measure(
@@ -63,6 +67,7 @@ class BracketView(context: Context, val bracketPosition: BracketPosition): Const
     }
 
     fun clickListener() {
-        Toast.makeText(context, "Click Listener", Toast.LENGTH_SHORT).show()
+        binding.team1.text = "1111111111"
+        binding.team2.text = "22222222"
     }
 }

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.tournamenttool.R
 import helpers.BracketHelper
 import helpers.BracketLineView
+import android.widget.Toast
 
 class BracketsFragment : Fragment() {
 
@@ -44,6 +45,10 @@ class BracketsFragment : Fragment() {
         BracketHelper.setTeamsNames(numberOfTeams, bracketsArray)
         BracketHelper.positionBrackets(bracketsArray)
         BracketHelper.positionBracketLines(bracketLinesArray, bracketsArray)
+
+    }
+
+    fun clicked() {
 
     }
 
