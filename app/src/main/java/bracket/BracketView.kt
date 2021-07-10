@@ -1,21 +1,18 @@
 package bracket
 
 import android.content.Context
-import android.util.Log
 import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import bracket.model.BracketPosition
-import android.widget.Toast
 import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.BracketLayoutBinding
 import androidx.databinding.DataBindingUtil
 import android.view.LayoutInflater
+import androidx.navigation.findNavController
 
 
 class BracketView(context: Context, val bracketPosition: BracketPosition): ConstraintLayout(context) {
     private var binding: BracketLayoutBinding
-    var layout: ConstraintLayout
 
     init {
         inflate(context, R.layout.bracket_layout, this)
@@ -67,6 +64,7 @@ class BracketView(context: Context, val bracketPosition: BracketPosition): Const
     }
 
     fun clickListener() {
+        this.findNavController().navigate(BracketsFragmentDirections.actionBracketsFragmentToBottomSheet())
         binding.team1.text = "1111111111"
         binding.team2.text = "22222222"
     }

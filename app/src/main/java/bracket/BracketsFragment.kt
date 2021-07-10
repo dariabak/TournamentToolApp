@@ -9,21 +9,31 @@ import com.example.tournamenttool.R
 import helpers.BracketHelper
 import helpers.BracketLineView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import com.example.tournamenttool.databinding.FragmentBracketsLayoutBinding
+import java.util.*
 
 class BracketsFragment : Fragment() {
 
     private lateinit var layout: ViewGroup
-
+    private lateinit var binding: FragmentBracketsLayoutBinding
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView: View = inflater.inflate(R.layout.fragment_brackets_layout, container, false)
-        layout = rootView.findViewById<View>(R.id.brackets_layout) as ViewGroup
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_brackets_layout,
+            container,
+            false
+        )
+
+        layout = binding.bracketsLayout as ViewGroup
 
         val args = BracketsFragmentArgs.fromBundle(requireArguments())
         val numberOfTeams = args.numberOfTeams
         createBrackets(numberOfTeams)
 
-        return rootView
+
+        return binding.root
     }
 
     private fun createBrackets(numberOfTeams: Int) {
@@ -42,14 +52,10 @@ class BracketsFragment : Fragment() {
             bracketLinesArray.add(line)
             layout.addView(line)
         }
+
         BracketHelper.setTeamsNames(numberOfTeams, bracketsArray)
         BracketHelper.positionBrackets(bracketsArray)
         BracketHelper.positionBracketLines(bracketLinesArray, bracketsArray)
-
-    }
-
-    fun clicked() {
-
     }
 
 }

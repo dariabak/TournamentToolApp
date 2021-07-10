@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="title.WelcomeFragment"
+        android:name="welcome.WelcomeFragment"
         android:label="WelcomeFragment">
         <action
             android:id="@+id/action_welcome_to_brackets"
@@ -20,5 +20,12 @@
         <argument
             android:name="number_of_teams"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_bracketsFragment_to_bottomSheet"
+            app:destination="@id/bottomSheet" />
     </fragment>
+    <dialog
+        android:id="@+id/bottomSheet"
+        android:name="BottomSheet.BottomSheetFragment"
+        tools:layout="@layout/bottom_sheet_layout" />
 </navigation>
