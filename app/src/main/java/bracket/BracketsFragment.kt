@@ -30,7 +30,10 @@ class BracketsFragment : Fragment() {
 
         val args = BracketsFragmentArgs.fromBundle(requireArguments())
         val numberOfTeams = args.numberOfTeams
-        createBrackets(numberOfTeams)
+       
+        if(numberOfTeams != 0) {
+            createBrackets(numberOfTeams)
+        }
 
 
         return binding.root

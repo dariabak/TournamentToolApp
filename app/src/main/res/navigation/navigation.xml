@@ -27,5 +27,14 @@
     <dialog
         android:id="@+id/bottomSheet"
         android:name="BottomSheet.BottomSheetFragment"
-        tools:layout="@layout/bottom_sheet_layout" />
+        tools:layout="@layout/bottom_sheet_layout" >
+        <argument
+            android:name="team1"
+            app:argType="string" />
+        <argument android:name="team2"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_bottomSheet_to_bracketsFragment"
+            app:destination="@id/bracketsFragment" />
+    </dialog>
 </navigation>
