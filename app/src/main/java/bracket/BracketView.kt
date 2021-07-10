@@ -1,17 +1,25 @@
 package bracket
 
 import android.content.Context
+import android.util.Log
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import bracket.model.BracketPosition
+import android.widget.Toast
 import com.example.tournamenttool.R
-import kotlinx.android.synthetic.main.bracket_layout.view.*
+import com.example.tournamenttool.databinding.BracketLayoutBinding
+import androidx.databinding.DataBindingUtil
+import android.view.LayoutInflater
 
 
-class BracketsView(context: Context, val bracketPosition: BracketPosition): ConstraintLayout(context) {
+class BracketView(context: Context, val bracketPosition: BracketPosition): ConstraintLayout(context) {
+    private var binding: BracketLayoutBinding
 
     init {
-       inflate(context, R.layout.bracket_layout, this)
+        inflate(context, R.layout.bracket_layout, this)
+        val inflater: LayoutInflater = LayoutInflater.from(context)
+        binding = DataBindingUtil.inflate(inflater, R.layout.bracket_layout,this , true)
    }
 
     fun getMidY(): Int {
@@ -47,10 +55,14 @@ class BracketsView(context: Context, val bracketPosition: BracketPosition): Cons
      }
 
     fun setTeam1(team: String) {
-        this.team1.text = team
+        binding.team1.text = team
     }
 
     fun setTeam2(team: String) {
-        this.team2.text = team
+        binding.team2.text = team
+    }
+
+    fun clickListener() {
+        Toast.makeText(context, "Click Listener", Toast.LENGTH_SHORT).show()
     }
 }

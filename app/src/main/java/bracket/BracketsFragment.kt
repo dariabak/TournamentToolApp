@@ -7,11 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.tournamenttool.R
 import helpers.BracketHelper
-import kotlinx.android.synthetic.main.bracket_layout.view.*
 import helpers.BracketLineView
-
-
-
 
 class BracketsFragment : Fragment() {
 
@@ -31,11 +27,11 @@ class BracketsFragment : Fragment() {
 
     private fun createBrackets(numberOfTeams: Int) {
         val array = BracketHelper.getBracketPosition(numberOfTeams)
-        var bracketsArray = ArrayList<BracketsView>()
+        var bracketsArray = ArrayList<BracketView>()
         var bracketLinesArray = ArrayList<BracketLineView>()
 
        for(element in array) {
-           val bracket = BracketsView(requireActivity(), element)
+           val bracket = BracketView(requireActivity(), element)
            bracketsArray.add(bracket)
            bracket.setId(bracketsArray.size)
            layout.addView(bracket)

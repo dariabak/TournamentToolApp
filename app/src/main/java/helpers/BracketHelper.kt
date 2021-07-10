@@ -1,6 +1,6 @@
 package helpers
 
-import bracket.BracketsView
+import bracket.BracketView
 import bracket.model.BracketPosition
 import android.view.ViewGroup
 import kotlin.math.ceil
@@ -36,7 +36,6 @@ class BracketHelper {
         }
 
         fun getPreviousBrackets(row: Int, col: Int): ArrayList<BracketPosition> {
-
             var previousBracketPositionArrayList = ArrayList<BracketPosition>()
             val previousBracketPosition1 = BracketPosition(2 * row, col - 1)
             val previousBracketPosition2 = BracketPosition(2 * row + 1, col - 1)
@@ -46,7 +45,7 @@ class BracketHelper {
             return previousBracketPositionArrayList
         }
 
-        fun positionBrackets(brackets: ArrayList<BracketsView>){
+        fun positionBrackets(brackets: ArrayList<BracketView>) {
             for(bracket in brackets){
                 when(bracket.bracketPosition.col){
                     0 -> {
@@ -74,7 +73,7 @@ class BracketHelper {
             }
         }
 
-        fun findBracket(position: BracketPosition, brackets: ArrayList<BracketsView>): BracketsView {
+        fun findBracket(position: BracketPosition, brackets: ArrayList<BracketView>): BracketView {
             var previousColumnsRowCounter = 0.0
             for(i in 0 until position.col){
                 previousColumnsRowCounter += (brackets.size + 1) / 2.0.pow(i)/2
@@ -82,7 +81,7 @@ class BracketHelper {
             return brackets.get(previousColumnsRowCounter.toInt() + position.row)
         }
 
-        fun positionBracketLines(lines: ArrayList<BracketLineView>, brackets: ArrayList<BracketsView>) {
+        fun positionBracketLines(lines: ArrayList<BracketLineView>, brackets: ArrayList<BracketView>) {
             var rowsInFirstColumn = (brackets.size + 1)/2
             var j = 0
             for(i in rowsInFirstColumn until brackets.size) {
@@ -112,7 +111,7 @@ class BracketHelper {
             }
         }
 
-        fun setTeamsNames(numberOfTeams: Int, brackets: ArrayList<BracketsView>) {
+        fun setTeamsNames(numberOfTeams: Int, brackets: ArrayList<BracketView>) {
             var teamsArray = ArrayList<String>()
             for(i in 1..numberOfTeams) {
                 teamsArray.add("Team $i")
