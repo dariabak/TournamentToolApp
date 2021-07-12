@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.tournamenttool.databinding.FragmentBracketsLayoutBinding
 import java.util.*
 import androidx.lifecycle.Observer
+import java.math.BigDecimal
+import java.math.BigInteger
 
 class BracketsFragment : Fragment() {
 
@@ -49,7 +51,14 @@ class BracketsFragment : Fragment() {
         })
 
         viewModel.winner.observe(requireActivity(), Observer { winner->
-            bracketsArray.get(nextBracketId).setTeam1(winner)
+            val value = viewModel.bracketId.value as Int
+            val a = BigDecimal("$value")
+            val b = BigDecimal("2")
+            if(a.rem(b).toInt() == 0) {
+                bracketsArray.get(nextBracketId).setTeam1(winner)
+            } else {
+                bracketsArray.get(nextBracketId).setTeam2(winner)
+            }
         })
     }
     private fun createBrackets(numberOfTeams: Int) {
