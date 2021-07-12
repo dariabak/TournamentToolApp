@@ -8,6 +8,9 @@
 <variable
     name="BracketsFragment"
     type="bracket.BracketsFragment" />
+        <variable
+            name="BracketsViewModel"
+            type="bracket.BracketsViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"

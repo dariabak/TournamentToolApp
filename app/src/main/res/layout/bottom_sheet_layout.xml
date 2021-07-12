@@ -5,7 +5,10 @@
 
 <data>
     <variable
-        name="BottomSheet"
+        name="bracketsViewModel"
+        type="bracket.BracketsViewModel" />
+    <variable
+        name="bottomSheet"
         type="BottomSheet.BottomSheetFragment" />
 </data>
 <androidx.constraintlayout.widget.ConstraintLayout

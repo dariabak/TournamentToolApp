@@ -24,8 +24,10 @@ class WelcomeFragment: Fragment() {
         spinner.adapter = adapter
 
         submitButton.setOnClickListener{
-          val numberOfTeams =  spinner.selectedItem as Int
-            rootView.findNavController().navigate(WelcomeFragmentDirections.actionWelcomeToBrackets(numberOfTeams))
+          var numberOfTeams =  spinner.selectedItem as Int
+            val action = WelcomeFragmentDirections.actionWelcomeToBrackets()
+            action.numberOfTeams = numberOfTeams
+            rootView.findNavController().navigate(action)
         }
         return rootView
     }

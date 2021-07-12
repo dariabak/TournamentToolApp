@@ -5,6 +5,7 @@ import bracket.model.BracketPosition
 import android.view.ViewGroup
 import kotlin.math.ceil
 import kotlin.math.log
+import kotlin.math.floor
 import kotlin.math.pow
 import kotlin.math.abs
 import kotlin.random.Random
@@ -131,6 +132,12 @@ class BracketHelper {
                 index.remove(index.get(0))
             }
 
+        }
+
+        fun findNextBracket(bracketId: Int, brackets: ArrayList<BracketView>): Int {
+            var firstColumn = (brackets.size + 1)/2
+            var nextBracketId = floor(bracketId.toDouble()/2.0) + firstColumn
+            return nextBracketId.toInt()
         }
     }
 }
