@@ -9,7 +9,7 @@ import com.example.tournamenttool.R
 import helpers.BracketHelper
 import helpers.BracketLineView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.tournamenttool.databinding.FragmentBracketsLayoutBinding
 import java.util.*
 import androidx.lifecycle.Observer
@@ -20,6 +20,7 @@ class BracketsFragment : Fragment() {
     private lateinit var binding: FragmentBracketsLayoutBinding
     private lateinit var viewModel: BracketsViewModel
     private var bracketsArray = ArrayList<BracketView>()
+    private var nextBracketId = 0
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
@@ -35,22 +36,22 @@ class BracketsFragment : Fragment() {
         val numberOfTeams = args.numberOfTeams
         createBrackets(numberOfTeams)
 
-        viewModel = ViewModelProviders.of(this).get(BracketsViewModel::class.java)
-        binding.bracketsViewModel = viewModel
-        binding.lifecycleOwner = this
-        var nextBracketId = -1
 
-        viewModel.bracketId.observe(this, Observer { id ->
-            nextBracketId =  BracketHelper.findNextBracket(id, bracketsArray)
-        })
 
-        viewModel.winner.observe(this, Observer { winner->
-            bracketsArray.get(nextBracketId).setTeam1(winner)
-        })
 
         return binding.root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(BracketsViewModel::class.java)
+        viewModel.bracketId.observe(requireActivity(), Observer { id ->
+            nextBracketId =  BracketHelper.findNextBracket(id, bracketsArray)
+        })
 
+        viewModel.winner.observe(requireActivity(), Observer { winner->
+            bracketsArray.get(nextBracketId).setTeam1(winner)
+        })
+    }
     private fun createBrackets(numberOfTeams: Int) {
         val array = BracketHelper.getBracketPosition(numberOfTeams)
         var bracketLinesArray = ArrayList<BracketLineView>()
