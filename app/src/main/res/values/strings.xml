@@ -2,4 +2,8 @@
     <string name="app_name">TournamentTool</string>
     <string name="submit_button">Submit</string>
     <string name="brackets_layout">brackets_layout</string>
+    <string name="what_type_schedule">Type of schedule</string>
+    <string name="enter_names_question">Do you want enter team names?</string>
+    <string name="how_many_teams">Number of teams</string>
+    <string name="name_of_tournament">Name of your tournament</string>
 </resources>
