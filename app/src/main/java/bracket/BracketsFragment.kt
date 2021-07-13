@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.tournamenttool.R
 import helpers.BracketHelper
@@ -51,13 +52,17 @@ class BracketsFragment : Fragment() {
         })
 
         viewModel.winner.observe(requireActivity(), Observer { winner->
-            val value = viewModel.bracketId.value as Int
-            val a = BigDecimal("$value")
-            val b = BigDecimal("2")
-            if(a.rem(b).toInt() == 0) {
-                bracketsArray.get(nextBracketId).setTeam1(winner)
+            if(bracketsArray.get(bracketsArray.size - 1).id != viewModel.bracketId.value) {
+                val value = viewModel.bracketId.value as Int
+                val a = BigDecimal("$value")
+                val b = BigDecimal("2")
+                if (a.rem(b).toInt() == 0) {
+                    bracketsArray.get(nextBracketId).setTeam1(winner)
+                } else {
+                    bracketsArray.get(nextBracketId).setTeam2(winner)
+                }
             } else {
-                bracketsArray.get(nextBracketId).setTeam2(winner)
+                Toast.makeText(context, "The winner is $winner", Toast.LENGTH_LONG).show()
             }
         })
     }

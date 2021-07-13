@@ -72,6 +72,7 @@ class BracketHelper {
 
                 }
             }
+
         }
 
         fun findBracket(position: BracketPosition, brackets: ArrayList<BracketView>): BracketView {
@@ -139,5 +140,6 @@ class BracketHelper {
             var nextBracketId = floor(bracketId.toDouble()/2.0) + firstColumn
             return nextBracketId.toInt()
         }
+
     }
 }
