@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.FragmentWelcomeLayoutBinding
 
@@ -47,9 +47,38 @@ class WelcomeFragment: Fragment() {
             NavHostFragment.findNavController(this).navigate(action)
         }
 
+        viewModel.chosenNumber.observe(this, Observer {
+            if(viewModel.switchOn.value == true) {
+                teamNamesLayout.removeAllViews()
+                for (i in 0 until it) {
+                    if (i < viewModel.teamsNames.size) {
+                        teamNamesLayout.addView(viewModel.teamsNames.get(i))
+                    } else {
+                        var editText = EditText(context)
+                        viewModel.teamsNames.add(editText)
+                        teamNamesLayout.addView(editText)
+                    }
+                }
+            }
+
+        })
+
+        binding.numberOfTeamsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                teamNamesLayout.removeAllViews()
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val number = binding.numberOfTeamsSpinner.selectedItem as Int
+                viewModel.setChosenNumber(number)
+            }
+
+        }
+
         binding.enterTeamNamesSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                var number = binding.numberOfTeamsSpinner.selectedItem as Int
+                viewModel.switchOn()
+                val number = viewModel.chosenNumber.value as Int
                     for (i in 0 until number) {
                         if (i < viewModel.teamsNames.size) {
                             teamNamesLayout.addView(viewModel.teamsNames.get(i))
@@ -61,6 +90,7 @@ class WelcomeFragment: Fragment() {
                         }
                     }
             } else {
+                viewModel.switchOff()
                 teamNamesLayout.removeAllViews()
             }
         }

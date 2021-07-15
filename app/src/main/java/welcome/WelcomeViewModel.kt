@@ -14,7 +14,21 @@ class WelcomeViewModel: ViewModel() {
     val chosenNumber: LiveData<Int>
         get() = _chosenNumber
 
+    private var _switchOn = MutableLiveData<Boolean>()
+    val switchOn: LiveData<Boolean>
+        get() = _switchOn
+   init{
+       _chosenNumber.value = 0
+       _switchOn.value = false
+   }
+
     fun setChosenNumber(number: Int) {
         _chosenNumber.value = number
+    }
+    fun switchOn() {
+        _switchOn.value = true
+    }
+    fun switchOff() {
+        _switchOn.value = false
     }
 }
