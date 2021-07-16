@@ -30,8 +30,9 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/bracketsFragment" />
-<!--        <argument android:name="teamNamesArray"-->
-<!--            app:argType="string[]" />-->
+
+        <argument android:name="teamNamesArray"
+            app:argType="string[]" />
 
     </fragment>
     <dialog

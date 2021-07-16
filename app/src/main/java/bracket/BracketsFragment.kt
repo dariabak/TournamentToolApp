@@ -25,6 +25,7 @@ class BracketsFragment : Fragment() {
     private var bracketsArray = ArrayList<BracketView>()
     private var nextBracketId = 0
 
+
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
             inflater,
@@ -35,7 +36,9 @@ class BracketsFragment : Fragment() {
         layout = binding.bracketsLayout as ViewGroup
         val args = BracketsFragmentArgs.fromBundle(requireArguments())
         val numberOfTeams = args.numberOfTeams
+        var teamNamesArray = args.teamNamesArray.toCollection(ArrayList())
         createBrackets(numberOfTeams)
+        BracketHelper.setTeamsNames(teamNamesArray, bracketsArray)
 
         return binding.root
     }
@@ -77,7 +80,6 @@ class BracketsFragment : Fragment() {
             layout.addView(line)
         }
 
-        BracketHelper.setTeamsNames(numberOfTeams, bracketsArray)
         BracketHelper.positionBrackets(bracketsArray)
         BracketHelper.positionBracketLines(bracketLinesArray, bracketsArray)
     }

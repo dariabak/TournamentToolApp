@@ -113,22 +113,19 @@ class BracketHelper {
             }
         }
 
-        fun setTeamsNames(numberOfTeams: Int, brackets: ArrayList<BracketView>) {
-            var teamsArray = ArrayList<String>()
-            for(i in 1..numberOfTeams) {
-                teamsArray.add("Team $i")
-            }
+        fun setTeamsNames(teamNames: ArrayList<String>, brackets: ArrayList<BracketView>) {
+
             var index = ArrayList<Int>()
-            teamsArray.shuffle()
+            teamNames.shuffle()
             var bracketsInFirstColumn = (brackets.size + 1)/2
             for(i in bracketsInFirstColumn - 1 downTo 0) {
-                brackets.get(i).setTeam1(teamsArray.get(i))
-                teamsArray.removeAt(i)
+                brackets.get(i).setTeam1(teamNames.get(i))
+                teamNames.removeAt(i)
                 index.add(i)
             }
 
             index.shuffle()
-            for(team in teamsArray){
+            for(team in teamNames){
                 brackets.get(index.get(0)).setTeam2(team)
                 index.remove(index.get(0))
             }

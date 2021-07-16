@@ -6,13 +6,13 @@ apply plugin: "androidx.navigation.safeargs"
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.example.tournamenttool"
-        minSdkVersion 23
-        targetSdkVersion 29
+        minSdkVersion 27
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -29,6 +29,11 @@ android {
         viewBinding true
         dataBinding true
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
 }
 
 dependencies {

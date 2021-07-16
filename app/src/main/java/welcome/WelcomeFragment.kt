@@ -47,7 +47,7 @@ class WelcomeFragment: Fragment() {
         binding.submitButton.setOnClickListener{
             teamNamesLayout.removeAllViews()
             var numberOfTeams =  binding.numberOfTeamsSpinner.selectedItem as Int
-            val action = WelcomeFragmentDirections.actionWelcomeToBrackets()
+            val action = WelcomeFragmentDirections.actionWelcomeToBrackets(viewModel.getArrayOfNames())
             action.numberOfTeams = numberOfTeams
 
             NavHostFragment.findNavController(this).navigate(action)
@@ -58,19 +58,19 @@ class WelcomeFragment: Fragment() {
                 teamNamesLayout.removeAllViews()
                 for (i in 0 until it) {
                     var editText = EditText(context)
-                    if (i < viewModel.teamsNames.size) {
-//                        editText.doAfterTextChanged {
-//                            viewModel.teamsNames.get(i) = it.text.toString()
-//                        }
-
+                    if (viewModel.teamsNames.containsKey(i)) {
                         editText.setText(viewModel.teamsNames.get(i))
                         teamNamesLayout.addView(editText)
+                        editText.doAfterTextChanged {
+                            viewModel.teamsNames.put(i, it.toString())
+                        }
                     }
                     else {
-//                        editText.doAfterTextChanged{
-//                            viewModel.teamsNames.get(i) = it.text.toString()
-//                        }
-                        viewModel.teamsNames.add(editText.text.toString())
+                        editText.doAfterTextChanged {
+                            viewModel.teamsNames.put(i, it.toString())
+                        }
+                        var num = i + 1
+                        editText.setHint("Team $num")
                         teamNamesLayout.addView(editText)
                     }
                 }
@@ -79,11 +79,13 @@ class WelcomeFragment: Fragment() {
 
         binding.numberOfTeamsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
+
                 teamNamesLayout.removeAllViews()
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val number = binding.numberOfTeamsSpinner.selectedItem as Int
+                viewModel.numberOfTeams = number
                 viewModel.setChosenNumber(number)
             }
 
@@ -95,20 +97,19 @@ class WelcomeFragment: Fragment() {
                 val number = viewModel.chosenNumber.value as Int
                     for (i in 0 until number) {
                         var editText = EditText(context)
-                        if (i < viewModel.teamsNames.size) {
-                            editText.addTextChangedListener() {
-                                override fun afterTextChanged(editable: Editable?) {
-                                    viewModel.teamsNames.get(i) = editable.text.toString()
-                                }
-                            }
+                        if (viewModel.teamsNames.containsKey(i)) {
                             editText.setText(viewModel.teamsNames.get(i))
                             teamNamesLayout.addView(editText)
+                            editText.doAfterTextChanged {
+                                viewModel.teamsNames.put(i, it.toString())
+                            }
                         }
                         else {
-//                            editText.doAfterTextChanged {
-//                                viewModel.teamsNames.get(i) = it.text.toString()
-//                            }
-                            viewModel.teamsNames.add(editText.text.toString())
+                            editText.doAfterTextChanged {
+                                viewModel.teamsNames.put(i, it.toString())
+                            }
+                            var num = i + 1
+                            editText.setHint("Team $num")
                             teamNamesLayout.addView(editText)
                         }
                     }
