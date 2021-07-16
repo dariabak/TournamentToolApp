@@ -16,6 +16,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.FragmentWelcomeLayoutBinding
+import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
+import android.view.inputmethod.EditorInfo
 
 
 class WelcomeFragment: Fragment() {
@@ -58,6 +61,10 @@ class WelcomeFragment: Fragment() {
                 teamNamesLayout.removeAllViews()
                 for (i in 0 until it) {
                     var editText = EditText(context)
+                    editText.setSingleLine()
+                    editText.setMaxLength(10)
+                    editText.imeOptions = EditorInfo.IME_ACTION_NEXT
+
                     if (viewModel.teamsNames.containsKey(i)) {
                         editText.setText(viewModel.teamsNames.get(i))
                         teamNamesLayout.addView(editText)
@@ -97,6 +104,9 @@ class WelcomeFragment: Fragment() {
                 val number = viewModel.chosenNumber.value as Int
                     for (i in 0 until number) {
                         var editText = EditText(context)
+                        editText.setMaxLength(10)
+                        editText.setSingleLine()
+                        editText.imeOptions = EditorInfo.IME_ACTION_NEXT
                         if (viewModel.teamsNames.containsKey(i)) {
                             editText.setText(viewModel.teamsNames.get(i))
                             teamNamesLayout.addView(editText)
@@ -120,5 +130,8 @@ class WelcomeFragment: Fragment() {
         }
 
         return binding.root
+    }
+    fun EditText.setMaxLength(maxLength: Int){
+        filters = arrayOf<InputFilter>(LengthFilter(maxLength))
     }
 }
