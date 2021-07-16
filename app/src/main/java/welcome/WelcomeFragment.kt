@@ -1,11 +1,14 @@
 package welcome
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -27,6 +30,7 @@ class WelcomeFragment: Fragment() {
             container,
             false
         )
+
         teamNamesLayout = binding.teamNamesLayout as ViewGroup
         viewModel = ViewModelProviders.of(this).get(WelcomeViewModel::class.java)
         binding.welcomeViewModel = viewModel
@@ -41,9 +45,11 @@ class WelcomeFragment: Fragment() {
         binding.typeOfScheduleSpinner.adapter = typeAdapter
 
         binding.submitButton.setOnClickListener{
-          var numberOfTeams =  binding.numberOfTeamsSpinner.selectedItem as Int
+            teamNamesLayout.removeAllViews()
+            var numberOfTeams =  binding.numberOfTeamsSpinner.selectedItem as Int
             val action = WelcomeFragmentDirections.actionWelcomeToBrackets()
             action.numberOfTeams = numberOfTeams
+
             NavHostFragment.findNavController(this).navigate(action)
         }
 
@@ -51,16 +57,24 @@ class WelcomeFragment: Fragment() {
             if(viewModel.switchOn.value == true) {
                 teamNamesLayout.removeAllViews()
                 for (i in 0 until it) {
+                    var editText = EditText(context)
                     if (i < viewModel.teamsNames.size) {
-                        teamNamesLayout.addView(viewModel.teamsNames.get(i))
-                    } else {
-                        var editText = EditText(context)
-                        viewModel.teamsNames.add(editText)
+//                        editText.doAfterTextChanged {
+//                            viewModel.teamsNames.get(i) = it.text.toString()
+//                        }
+
+                        editText.setText(viewModel.teamsNames.get(i))
+                        teamNamesLayout.addView(editText)
+                    }
+                    else {
+//                        editText.doAfterTextChanged{
+//                            viewModel.teamsNames.get(i) = it.text.toString()
+//                        }
+                        viewModel.teamsNames.add(editText.text.toString())
                         teamNamesLayout.addView(editText)
                     }
                 }
             }
-
         })
 
         binding.numberOfTeamsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -80,12 +94,21 @@ class WelcomeFragment: Fragment() {
                 viewModel.switchOn()
                 val number = viewModel.chosenNumber.value as Int
                     for (i in 0 until number) {
+                        var editText = EditText(context)
                         if (i < viewModel.teamsNames.size) {
-                            teamNamesLayout.addView(viewModel.teamsNames.get(i))
+                            editText.addTextChangedListener() {
+                                override fun afterTextChanged(editable: Editable?) {
+                                    viewModel.teamsNames.get(i) = editable.text.toString()
+                                }
+                            }
+                            editText.setText(viewModel.teamsNames.get(i))
+                            teamNamesLayout.addView(editText)
                         }
                         else {
-                            var editText = EditText(context)
-                            viewModel.teamsNames.add(editText)
+//                            editText.doAfterTextChanged {
+//                                viewModel.teamsNames.get(i) = it.text.toString()
+//                            }
+                            viewModel.teamsNames.add(editText.text.toString())
                             teamNamesLayout.addView(editText)
                         }
                     }

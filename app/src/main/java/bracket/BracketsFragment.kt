@@ -32,15 +32,10 @@ class BracketsFragment : Fragment() {
             container,
             false
         )
-
         layout = binding.bracketsLayout as ViewGroup
-
         val args = BracketsFragmentArgs.fromBundle(requireArguments())
         val numberOfTeams = args.numberOfTeams
         createBrackets(numberOfTeams)
-
-
-
 
         return binding.root
     }
