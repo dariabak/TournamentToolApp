@@ -1,4 +1,4 @@
-package welcome
+package tournament
 
 import androidx.lifecycle.ViewModel
 import android.view.View
@@ -6,12 +6,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import android.widget.*
 
-class WelcomeViewModel: ViewModel() {
+class TournamentViewModel: ViewModel() {
     var numberOfTeamsArray = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 12, 13)
     var typesOfScheduleArray = arrayOf("Tournament Single Elimination")
     var teamsNames: MutableMap<Int, String> = mutableMapOf()
     var numberOfTeams = 0
+    var tournamentName = ""
 
+    private var _canContinue = MutableLiveData<Boolean>()
+    val canContinue: LiveData<Boolean>
+        get() = _canContinue
 
     private var _chosenNumber = MutableLiveData<Int>()
     val chosenNumber: LiveData<Int>
@@ -23,6 +27,7 @@ class WelcomeViewModel: ViewModel() {
    init{
        _chosenNumber.value = 0
        _switchOn.value = false
+       _canContinue.value = false
    }
 
     fun setChosenNumber(number: Int) {
@@ -33,6 +38,14 @@ class WelcomeViewModel: ViewModel() {
     }
     fun switchOff() {
         _switchOn.value = false
+    }
+
+    fun checkTournamentNameLength() {
+        if(tournamentName.length == 0) {
+            _canContinue.value = false
+        } else {
+            _canContinue.value = true
+        }
     }
 
     fun getArrayOfNames(): Array<String> {

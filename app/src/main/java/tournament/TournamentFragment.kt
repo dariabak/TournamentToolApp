@@ -1,13 +1,12 @@
-package welcome
+package tournament
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import android.widget.AdapterView.OnItemSelectedListener
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -15,28 +14,28 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import com.example.tournamenttool.R
-import com.example.tournamenttool.databinding.FragmentWelcomeLayoutBinding
 import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
 import android.view.inputmethod.EditorInfo
+import com.example.tournamenttool.databinding.FragmentTournamentLayoutBinding
 
 
-class WelcomeFragment: Fragment() {
-    private lateinit var binding: FragmentWelcomeLayoutBinding
+class TournamentFragment: Fragment() {
+    private lateinit var binding: FragmentTournamentLayoutBinding
     private lateinit var teamNamesLayout: ViewGroup
-    private lateinit var viewModel: WelcomeViewModel
+    private lateinit var viewModel: TournamentViewModel
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_welcome_layout,
+            R.layout.fragment_tournament_layout,
             container,
             false
         )
 
         teamNamesLayout = binding.teamNamesLayout as ViewGroup
-        viewModel = ViewModelProviders.of(this).get(WelcomeViewModel::class.java)
-        binding.welcomeViewModel = viewModel
+        viewModel = ViewModelProviders.of(this).get(TournamentViewModel::class.java)
+        binding.tournamentViewModel = viewModel
         binding.lifecycleOwner = this
 
         val adapter: ArrayAdapter<Int> = ArrayAdapter<Int>(requireActivity(), android.R.layout.simple_spinner_item, viewModel.numberOfTeamsArray)
@@ -50,11 +49,30 @@ class WelcomeFragment: Fragment() {
         binding.submitButton.setOnClickListener{
             teamNamesLayout.removeAllViews()
             var numberOfTeams =  binding.numberOfTeamsSpinner.selectedItem as Int
-            val action = WelcomeFragmentDirections.actionWelcomeToBrackets(viewModel.getArrayOfNames())
+            val action =
+                tournament.TournamentFragmentDirections.actionTournamentToBrackets(viewModel.getArrayOfNames())
             action.numberOfTeams = numberOfTeams
+            action.tournamentName = binding.nameOfTournament.text.toString()
 
             NavHostFragment.findNavController(this).navigate(action)
         }
+
+        binding.nameOfTournament.doAfterTextChanged {
+            viewModel.tournamentName = it.toString()
+            viewModel.checkTournamentNameLength()
+        }
+
+        viewModel.canContinue.observe(this, Observer {
+            if(it) {
+                binding.submitButton.isEnabled = true
+                binding.submitButton.alpha = 1.0f
+
+            } else {
+                binding.submitButton.isEnabled = false
+                binding.submitButton.alpha = 0.4f
+
+            }
+        })
 
         viewModel.chosenNumber.observe(this, Observer {
             if(viewModel.switchOn.value == true) {

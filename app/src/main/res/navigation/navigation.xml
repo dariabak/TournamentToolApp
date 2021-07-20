@@ -3,14 +3,14 @@
              xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:id="@+id/navigation"
-            app:startDestination="@id/welcomeFragment">
+            app:startDestination="@id/tournamentFragment">
 
     <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="welcome.WelcomeFragment"
-        android:label="WelcomeFragment">
+        android:id="@+id/tournamentFragment"
+        android:name="tournament.TournamentFragment"
+        android:label="TournamentFragment">
         <action
-            android:id="@+id/action_welcome_to_brackets"
+            android:id="@+id/action_tournament_to_brackets"
             app:destination="@id/bracketsFragment" />
 
     </fragment>
@@ -33,6 +33,10 @@
 
         <argument android:name="teamNamesArray"
             app:argType="string[]" />
+        <argument
+            android:name="tournamentName"
+            app:argType="string"
+            android:defaultValue="Tournament" />
 
     </fragment>
     <dialog

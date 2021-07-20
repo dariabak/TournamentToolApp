@@ -37,6 +37,7 @@ class BracketsFragment : Fragment() {
         val args = BracketsFragmentArgs.fromBundle(requireArguments())
         val numberOfTeams = args.numberOfTeams
         var teamNamesArray = args.teamNamesArray.toCollection(ArrayList())
+        binding.tournamentName.text = args.tournamentName
         createBrackets(numberOfTeams)
         BracketHelper.setTeamsNames(teamNamesArray, bracketsArray)
 

@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="welcomeViewModel"
-            type="welcome.WelcomeViewModel" />
+            name="tournamentViewModel"
+            type="tournament.TournamentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,6 +23,7 @@
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/colorPrimary"
             android:src="@drawable/white_arrow"
+            android:tint="@color/cardview_light_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
