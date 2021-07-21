@@ -24,6 +24,7 @@
             android:backgroundTint="@color/colorPrimary"
             android:src="@drawable/white_arrow"
             android:tint="@color/cardview_light_background"
+            app:backgroundTint="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

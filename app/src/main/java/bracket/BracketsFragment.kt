@@ -16,15 +16,22 @@ import java.util.*
 import androidx.lifecycle.Observer
 import java.math.BigDecimal
 import java.math.BigInteger
+import bracket.*
+import bracket.model.BracketPosition
 
-class BracketsFragment : Fragment() {
+
+interface BracketsFragmentInterface {
+
+}
+
+class BracketsFragment : Fragment(), BracketsFragmentInterface {
 
     private lateinit var layout: ViewGroup
     private lateinit var binding: FragmentBracketsLayoutBinding
     private lateinit var viewModel: BracketsViewModel
     private var bracketsArray = ArrayList<BracketView>()
     private var nextBracketId = 0
-
+    private lateinit var interactor: BracketInteractorInterface
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
@@ -34,11 +41,14 @@ class BracketsFragment : Fragment() {
             false
         )
         layout = binding.bracketsLayout as ViewGroup
+        val presenter = BracketPresenter(this)
+        interactor = BracketInteractor(presenter)
         val args = BracketsFragmentArgs.fromBundle(requireArguments())
         val numberOfTeams = args.numberOfTeams
+        val array = BracketHelper.getBracketPosition(numberOfTeams)
         var teamNamesArray = args.teamNamesArray.toCollection(ArrayList())
         binding.tournamentName.text = args.tournamentName
-        createBrackets(numberOfTeams)
+        createBrackets(numberOfTeams, array)
         BracketHelper.setTeamsNames(teamNamesArray, bracketsArray)
 
         return binding.root
@@ -67,8 +77,8 @@ class BracketsFragment : Fragment() {
 
         })
     }
-    private fun createBrackets(numberOfTeams: Int) {
-        val array = BracketHelper.getBracketPosition(numberOfTeams)
+    private fun createBrackets(numberOfTeams: Int, array: ArrayList<BracketPosition>) {
+
         var bracketLinesArray = ArrayList<BracketLineView>()
 
        for(element in array) {
