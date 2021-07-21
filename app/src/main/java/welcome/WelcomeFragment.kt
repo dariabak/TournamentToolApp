@@ -1,0 +1,32 @@
+package welcome
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavHostController
+import com.example.tournamenttool.R
+import com.example.tournamenttool.databinding.FragmentWelcomeLayoutBinding
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+
+class WelcomeFragment: Fragment() {
+    private lateinit var binding: FragmentWelcomeLayoutBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_welcome_layout,
+            container,
+            false
+        )
+
+        binding.addNewButton.setOnClickListener {
+            this.findNavController().navigate(WelcomeFragmentDirections.actionWelcomeToTournament())
+        }
+
+        return binding.root
+    }
+}

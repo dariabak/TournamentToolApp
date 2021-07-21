@@ -51,8 +51,9 @@ class BracketsFragment : Fragment() {
         })
 
         viewModel.winner.observe(requireActivity(), Observer { winner->
+            val value = viewModel.bracketId.value as Int
+            bracketsArray.get(value).changeTeamsColors(winner)
             if(bracketsArray.get(bracketsArray.size - 1).id != viewModel.bracketId.value) {
-                val value = viewModel.bracketId.value as Int
                 val a = BigDecimal("$value")
                 val b = BigDecimal("2")
                 if (a.rem(b).toInt() == 0) {
@@ -63,6 +64,7 @@ class BracketsFragment : Fragment() {
             } else {
                 Toast.makeText(context, "The winner is $winner", Toast.LENGTH_LONG).show()
             }
+
         })
     }
     private fun createBrackets(numberOfTeams: Int) {

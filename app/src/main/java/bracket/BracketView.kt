@@ -66,4 +66,14 @@ class BracketView(context: Context, val bracketPosition: BracketPosition): Const
     fun clickListener() {
         this.findNavController().navigate(BracketsFragmentDirections.actionBracketsFragmentToBottomSheet(binding.team1.text.toString(), binding.team2.text.toString(), this.id))
     }
+
+    fun changeTeamsColors(winner: String) {
+        if(winner == binding.team1.text) {
+            binding.team1.setTextColor(resources.getColor(R.color.green))
+            binding.team2.setTextColor(resources.getColor(R.color.red))
+        } else {
+            binding.team2.setTextColor(resources.getColor(R.color.green))
+            binding.team1.setTextColor(resources.getColor(R.color.red))
+        }
+    }
 }
