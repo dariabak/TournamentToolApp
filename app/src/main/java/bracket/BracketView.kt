@@ -9,6 +9,7 @@ import com.example.tournamenttool.databinding.BracketLayoutBinding
 import androidx.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import androidx.navigation.findNavController
+import kotlinx.android.synthetic.main.bracket_layout.view.*
 
 
 class BracketView(context: Context, val bracketPosition: BracketPosition): ConstraintLayout(context) {
@@ -54,6 +55,13 @@ class BracketView(context: Context, val bracketPosition: BracketPosition): Const
          params.setMargins(leftMargin, topMargin, 0, 0)
          this.layoutParams = params
      }
+
+    fun update(viewModel: BracketViewModel) {
+        binding.team1.text = viewModel.topText
+        binding.team2.text = viewModel.bottomText
+        binding.team1.setTextColor(viewModel.topTextColor)
+        binding.team2.setTextColor(viewModel.bottomTextColor)
+    }
 
     fun setTeam1(team: String) {
         binding.team1.text = team

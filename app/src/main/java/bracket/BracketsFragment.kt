@@ -21,7 +21,7 @@ import bracket.model.BracketPosition
 
 
 interface BracketsFragmentInterface {
-
+    fun updateBracket(viewModel: BracketViewModel, index: Int)
 }
 
 class BracketsFragment : Fragment(), BracketsFragmentInterface {
@@ -41,15 +41,16 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
             false
         )
         layout = binding.bracketsLayout as ViewGroup
-        val presenter = BracketPresenter(this)
+        val presenter = BracketPresenter(this, bracketsArray.size)
         interactor = BracketInteractor(presenter)
         val args = BracketsFragmentArgs.fromBundle(requireArguments())
         val numberOfTeams = args.numberOfTeams
-        val array = BracketHelper.getBracketPosition(numberOfTeams)
+        val positionArray = BracketHelper.getBracketPosition(numberOfTeams)
         var teamNamesArray = args.teamNamesArray.toCollection(ArrayList())
         binding.tournamentName.text = args.tournamentName
-        createBrackets(numberOfTeams, array)
-        BracketHelper.setTeamsNames(teamNamesArray, bracketsArray)
+        createBrackets(numberOfTeams, positionArray)
+       // BracketHelper.setTeamsNames(teamNamesArray, bracketsArray)
+        interactor.setUpBrackets(teamNamesArray, positionArray)
 
         return binding.root
     }
@@ -97,4 +98,7 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
         BracketHelper.positionBracketLines(bracketLinesArray, bracketsArray)
     }
 
+    override fun updateBracket(viewModel: BracketViewModel, index: Int) {
+        bracketsArray.get(index).update(viewModel)
+    }
 }
