@@ -59,29 +59,12 @@ class BracketView(context: Context, val bracketPosition: BracketPosition): Const
     fun update(viewModel: BracketViewModel) {
         binding.team1.text = viewModel.topText
         binding.team2.text = viewModel.bottomText
-        binding.team1.setTextColor(viewModel.topTextColor)
-        binding.team2.setTextColor(viewModel.bottomTextColor)
-    }
-
-    fun setTeam1(team: String) {
-        binding.team1.text = team
-    }
-
-    fun setTeam2(team: String) {
-        binding.team2.text = team
+        binding.team1.setTextColor(resources.getColor(viewModel.topTextColor))
+        binding.team2.setTextColor(resources.getColor(viewModel.bottomTextColor))
     }
 
     fun clickListener() {
-        this.findNavController().navigate(BracketsFragmentDirections.actionBracketsFragmentToBottomSheet(binding.team1.text.toString(), binding.team2.text.toString(), this.id))
+//        this.findNavController().navigate(BracketsFragmentDirections.actionBracketsFragmentToBottomSheet(binding.team1.text.toString(), binding.team2.text.toString(), this.id))
     }
 
-    fun changeTeamsColors(winner: String) {
-        if(winner == binding.team1.text) {
-            binding.team1.setTextColor(resources.getColor(R.color.green))
-            binding.team2.setTextColor(resources.getColor(R.color.red))
-        } else {
-            binding.team2.setTextColor(resources.getColor(R.color.green))
-            binding.team1.setTextColor(resources.getColor(R.color.red))
-        }
-    }
 }

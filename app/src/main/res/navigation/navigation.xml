@@ -58,10 +58,6 @@
             app:argType="string" />
         <argument android:name="team2"
             app:argType="string" />
-        <action
-            android:id="@+id/action_bottomSheet_to_bracketsFragment"
-            app:destination="@id/bracketsFragment"
-            app:popUpTo="@id/bracketsFragment" />
         <argument
             android:name="bracketId"
             app:argType="integer" />

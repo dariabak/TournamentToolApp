@@ -5,12 +5,11 @@ import com.example.tournamenttool.R
 import kotlin.math.pow
 
 interface BracketPresenterInterface {
- fun updateBracket(bracket: Bracket)
+ fun updateBracket(bracket: Bracket, index: Int)
 }
 
 class BracketPresenter(val fragment: BracketsFragmentInterface,val size: Int): BracketPresenterInterface {
-    override fun updateBracket(bracket: Bracket) {
-        val index = findBracketIndex(bracket.bracketPosition)
+    override fun updateBracket(bracket: Bracket, index: Int) {
         var topColor = R.color.black
         var bottomColor = R.color.black
 
@@ -23,13 +22,7 @@ class BracketPresenter(val fragment: BracketsFragmentInterface,val size: Int): B
         }
 
         val viewModel = BracketViewModel(bracket.team1, bracket.team2, topColor, bottomColor)
+        fragment.updateBracket(viewModel, index)
     }
 
-    fun findBracketIndex(position: BracketPosition): Int {
-        var previousColumnsRowCounter = 0.0
-        for(i in 0 until position.col){
-            previousColumnsRowCounter += (size + 1) / 2.0.pow(i)/2
-        }
-        return previousColumnsRowCounter.toInt() + position.row
-    }
 }

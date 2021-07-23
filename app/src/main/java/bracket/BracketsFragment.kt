@@ -47,37 +47,38 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
         val numberOfTeams = args.numberOfTeams
         val positionArray = BracketHelper.getBracketPosition(numberOfTeams)
         var teamNamesArray = args.teamNamesArray.toCollection(ArrayList())
+        var teamNames: ArrayList<String> = ArrayList(teamNamesArray)
         binding.tournamentName.text = args.tournamentName
         createBrackets(numberOfTeams, positionArray)
-       // BracketHelper.setTeamsNames(teamNamesArray, bracketsArray)
-        interactor.setUpBrackets(teamNamesArray, positionArray)
+        //BracketHelper.setTeamsNames(teamNamesArray, bracketsArray)
+        interactor.setUpBrackets(teamNames, positionArray)
 
         return binding.root
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(BracketsViewModel::class.java)
-        viewModel.bracketId.observe(requireActivity(), Observer { id ->
-            nextBracketId =  BracketHelper.findNextBracket(id, bracketsArray)
-        })
-
-        viewModel.winner.observe(requireActivity(), Observer { winner->
-            val value = viewModel.bracketId.value as Int
-            bracketsArray.get(value).changeTeamsColors(winner)
-            if(bracketsArray.get(bracketsArray.size - 1).id != viewModel.bracketId.value) {
-                val a = BigDecimal("$value")
-                val b = BigDecimal("2")
-                if (a.rem(b).toInt() == 0) {
-                    bracketsArray.get(nextBracketId).setTeam1(winner)
-                } else {
-                    bracketsArray.get(nextBracketId).setTeam2(winner)
-                }
-            } else {
-                Toast.makeText(context, "The winner is $winner", Toast.LENGTH_LONG).show()
-            }
-
-        })
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        viewModel = ViewModelProvider(requireActivity()).get(BracketsViewModel::class.java)
+//        viewModel.bracketId.observe(requireActivity(), Observer { id ->
+//            nextBracketId =  BracketHelper.findNextBracket(id, bracketsArray)
+//        })
+//
+//        viewModel.winner.observe(requireActivity(), Observer { winner->
+//            val value = viewModel.bracketId.value as Int
+//            bracketsArray.get(value).changeTeamsColors(winner)
+//            if(bracketsArray.get(bracketsArray.size - 1).id != viewModel.bracketId.value) {
+//                val a = BigDecimal("$value")
+//                val b = BigDecimal("2")
+//                if (a.rem(b).toInt() == 0) {
+//                    bracketsArray.get(nextBracketId).setTeam1(winner)
+//                } else {
+//                    bracketsArray.get(nextBracketId).setTeam2(winner)
+//                }
+//            } else {
+//                Toast.makeText(context, "The winner is $winner", Toast.LENGTH_LONG).show()
+//            }
+//
+//        })
+//    }
     private fun createBrackets(numberOfTeams: Int, array: ArrayList<BracketPosition>) {
 
         var bracketLinesArray = ArrayList<BracketLineView>()
@@ -87,6 +88,9 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
            bracketsArray.add(bracket)
            bracket.setId(bracketsArray.size - 1)
            layout.addView(bracket)
+           bracket.setOnClickListener {
+
+           }
        }
         for(i in 1 until array.size) {
             var line = BracketLineView(requireActivity())

@@ -16,6 +16,11 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
             bracketsArrayList.add(bracket)
         }
         setTeamsNames(teamNames, bracketsArrayList)
+        for(bracket in bracketsArrayList) {
+            if(bracket.team1 != "" || bracket.team2 != "") {
+                presenter.updateBracket(bracket)
+            }
+        }
     }
     private fun setTeamsNames(teamNames: ArrayList<String>, brackets: ArrayList<Bracket>) {
         var index = ArrayList<Int>()
@@ -31,5 +36,15 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
             brackets.get(index.get(0)).team2 = team
             index.remove(index.get(0))
         }
+    }
+    fun showBracketBottomSheet(position: BracketPosition) {
+
+    }
+    fun findBracketIndex(position: BracketPosition): Int {
+        var previousColumnsRowCounter = 0.0
+        for(i in 0 until position.col){
+            previousColumnsRowCounter += (size + 1) / 2.0.pow(i)/2
+        }
+        return previousColumnsRowCounter.toInt() + position.row
     }
 }
