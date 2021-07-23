@@ -1,9 +1,12 @@
 package bracket
 
+import android.util.Log
 import bracket.model.BracketPosition
+import kotlin.math.pow
 
 interface BracketInteractorInterface{
  fun setUpBrackets(teamNames: ArrayList<String>, positionArrayList: ArrayList<BracketPosition>)
+ fun showBracketBottomSheet(position: BracketPosition)
 
 }
 
@@ -18,7 +21,8 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
         setTeamsNames(teamNames, bracketsArrayList)
         for(bracket in bracketsArrayList) {
             if(bracket.team1 != "" || bracket.team2 != "") {
-                presenter.updateBracket(bracket)
+                var index = findBracketIndex(bracket.bracketPosition)
+                presenter.updateBracket(bracket, index)
             }
         }
     }
@@ -37,13 +41,24 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
             index.remove(index.get(0))
         }
     }
-    fun showBracketBottomSheet(position: BracketPosition) {
+    override fun showBracketBottomSheet(position: BracketPosition) {
+        val index = findBracketIndex(position)
+        val bracket = bracketsArrayList.get(index)
 
+        presenter.presentBracket(bracket, { winner ->
+            updateWinner(bracket, winner)
+        })
     }
+
+    fun updateWinner(bracket: Bracket, winner: Winner) {
+        bracket.winner = winner
+        presenter.updateBracket(bracket, findBracketIndex(bracket.bracketPosition))
+    }
+
     fun findBracketIndex(position: BracketPosition): Int {
         var previousColumnsRowCounter = 0.0
         for(i in 0 until position.col){
-            previousColumnsRowCounter += (size + 1) / 2.0.pow(i)/2
+            previousColumnsRowCounter += (bracketsArrayList.size + 1) / 2.0.pow(i)/2
         }
         return previousColumnsRowCounter.toInt() + position.row
     }

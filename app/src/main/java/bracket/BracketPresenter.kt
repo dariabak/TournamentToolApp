@@ -2,13 +2,13 @@ package bracket
 
 import bracket.model.BracketPosition
 import com.example.tournamenttool.R
-import kotlin.math.pow
 
 interface BracketPresenterInterface {
  fun updateBracket(bracket: Bracket, index: Int)
+ fun presentBracket(bracket: Bracket, handler: (Winner) -> Unit)
 }
 
-class BracketPresenter(val fragment: BracketsFragmentInterface,val size: Int): BracketPresenterInterface {
+class BracketPresenter(val fragment: BracketsFragmentInterface): BracketPresenterInterface {
     override fun updateBracket(bracket: Bracket, index: Int) {
         var topColor = R.color.black
         var bottomColor = R.color.black
@@ -25,4 +25,7 @@ class BracketPresenter(val fragment: BracketsFragmentInterface,val size: Int): B
         fragment.updateBracket(viewModel, index)
     }
 
+    override fun presentBracket(bracket: Bracket, handler: (Winner) -> Unit) {
+        fragment.displayBracket(bracket.team1, bracket.team2, handler)
+    }
 }

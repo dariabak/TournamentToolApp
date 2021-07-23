@@ -1,6 +1,8 @@
 package bracket
 
+import BottomSheet.BottomSheetFragment
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +20,13 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import bracket.*
 import bracket.model.BracketPosition
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 
 
 interface BracketsFragmentInterface {
     fun updateBracket(viewModel: BracketViewModel, index: Int)
+    fun displayBracket(topText: String, bottomText: String, handler: (Winner) -> Unit)
 }
 
 class BracketsFragment : Fragment(), BracketsFragmentInterface {
@@ -41,7 +46,7 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
             false
         )
         layout = binding.bracketsLayout as ViewGroup
-        val presenter = BracketPresenter(this, bracketsArray.size)
+        val presenter = BracketPresenter(this)
         interactor = BracketInteractor(presenter)
         val args = BracketsFragmentArgs.fromBundle(requireArguments())
         val numberOfTeams = args.numberOfTeams
@@ -88,8 +93,8 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
            bracketsArray.add(bracket)
            bracket.setId(bracketsArray.size - 1)
            layout.addView(bracket)
-           bracket.setOnClickListener {
-
+           bracket.addClickHandler {
+               interactor.showBracketBottomSheet(bracket.bracketPosition)
            }
        }
         for(i in 1 until array.size) {
@@ -104,5 +109,10 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
 
     override fun updateBracket(viewModel: BracketViewModel, index: Int) {
         bracketsArray.get(index).update(viewModel)
+    }
+    override fun displayBracket(topText: String, bottomText: String, handler: (Winner) -> Unit) {
+        val bottomFragment = BottomSheetFragment()
+        bottomFragment.update(topText, bottomText, handler)
+        bottomFragment.show(getFragmentManager()!!, "123")
     }
 }

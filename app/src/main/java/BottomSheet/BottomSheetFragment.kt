@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import bracket.BracketsFragment
 import bracket.BracketsViewModel
+import bracket.Winner
 import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.BottomSheetLayoutBinding
 
@@ -17,6 +18,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: BottomSheetLayoutBinding
     private lateinit var viewModel: BracketsViewModel
+    private var handler: ((Winner) -> Unit)? = null
 
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,24 +28,23 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             container,
             false
         )
-        val args = BottomSheetFragmentArgs.fromBundle(requireArguments())
-        binding.firstTeam.text = args.team1
-        binding.secondTeam.text = args.team2
-
 
         binding.firstTeam.setOnClickListener(){
-            viewModel.setBracketId(args.bracketId)
-            viewModel.setWinner(binding.firstTeam.text.toString())
+            handler?.invoke(Winner.TOP)
             dismiss()
         }
         binding.secondTeam.setOnClickListener(){
-            viewModel.setBracketId(args.bracketId)
-            viewModel.setWinner(binding.secondTeam.text.toString())
+            handler?.invoke(Winner.BOTTOM)
             dismiss()
         }
 
         return binding.root
     }
+
+    fun update(team1: String, team2: String, handler: (Winner) -> Unit) {
+        this.handler = handler
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(BracketsViewModel::class.java)

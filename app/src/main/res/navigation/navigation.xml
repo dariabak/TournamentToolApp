@@ -49,17 +49,15 @@
             android:defaultValue="Tournament" />
 
     </fragment>
-    <dialog
-        android:id="@+id/bottomSheet"
-        android:name="BottomSheet.BottomSheetFragment"
-        tools:layout="@layout/bottom_sheet_layout" >
-        <argument
-            android:name="team1"
-            app:argType="string" />
-        <argument android:name="team2"
-            app:argType="string" />
-        <argument
-            android:name="bracketId"
-            app:argType="integer" />
-    </dialog>
+<!--    <dialog-->
+<!--        android:id="@+id/bottomSheet"-->
+<!--        android:name="BottomSheet.BottomSheetFragment"-->
+<!--        tools:layout="@layout/bottom_sheet_layout" >-->
+<!--        <argument-->
+<!--            android:name="team1"-->
+<!--            app:argType="string" />-->
+<!--        <argument android:name="team2"-->
+<!--            app:argType="string" />-->
+
+<!--    </dialog>-->
 </navigation>

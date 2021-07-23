@@ -8,12 +8,12 @@ import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.BracketLayoutBinding
 import androidx.databinding.DataBindingUtil
 import android.view.LayoutInflater
-import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.bracket_layout.view.*
 
 
 class BracketView(context: Context, val bracketPosition: BracketPosition): ConstraintLayout(context) {
     private var binding: BracketLayoutBinding
+    private var handler: (() -> Unit)? = null
 
     init {
         inflate(context, R.layout.bracket_layout, this)
@@ -63,8 +63,12 @@ class BracketView(context: Context, val bracketPosition: BracketPosition): Const
         binding.team2.setTextColor(resources.getColor(viewModel.bottomTextColor))
     }
 
+    fun addClickHandler(handler: () -> Unit) {
+        this.handler = handler
+    }
+
     fun clickListener() {
-//        this.findNavController().navigate(BracketsFragmentDirections.actionBracketsFragmentToBottomSheet(binding.team1.text.toString(), binding.team2.text.toString(), this.id))
+        handler?.invoke()
     }
 
 }
