@@ -2,7 +2,10 @@ package bracket
 
 import android.util.Log
 import bracket.model.BracketPosition
+import kotlin.math.floor
 import kotlin.math.pow
+import java.math.BigDecimal
+
 
 interface BracketInteractorInterface{
  fun setUpBrackets(teamNames: ArrayList<String>, positionArrayList: ArrayList<BracketPosition>)
@@ -52,7 +55,27 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
 
     fun updateWinner(bracket: Bracket, winner: Winner) {
         bracket.winner = winner
-        presenter.updateBracket(bracket, findBracketIndex(bracket.bracketPosition))
+        val currentBracketIndex = findBracketIndex(bracket.bracketPosition)
+        presenter.updateBracket(bracket, currentBracketIndex)
+        if(!isLastBracket(currentBracketIndex)){
+            val nextBracketIndex = getNextBracketIndex(currentBracketIndex)
+                val a = BigDecimal("$currentBracketIndex")
+                val b = BigDecimal("2")
+                if (a.rem(b).toInt() == 0) {
+                    if(winner == Winner.TOP) {
+                        bracketsArrayList.get(nextBracketIndex).team1 = bracket.team1
+                    } else {
+                        bracketsArrayList.get(nextBracketIndex).team1 = bracket.team2
+                    }
+                } else {
+                    if(winner == Winner.BOTTOM) {
+                        bracketsArrayList.get(nextBracketIndex).team2 = bracket.team2
+                    } else {
+                        bracketsArrayList.get(nextBracketIndex).team2 = bracket.team1
+                    }
+                }
+            presenter.updateBracket(bracketsArrayList.get(nextBracketIndex), nextBracketIndex)
+        }
     }
 
     fun findBracketIndex(position: BracketPosition): Int {
@@ -61,5 +84,14 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
             previousColumnsRowCounter += (bracketsArrayList.size + 1) / 2.0.pow(i)/2
         }
         return previousColumnsRowCounter.toInt() + position.row
+    }
+
+    fun getNextBracketIndex(index: Int): Int {
+        var firstColumn = (bracketsArrayList.size + 1)/2
+        var nextBracketId = floor(index.toDouble()/2.0) + firstColumn
+        return nextBracketId.toInt()
+    }
+    fun isLastBracket(index: Int): Boolean {
+        return bracketsArrayList.size - 1 == index
     }
 }

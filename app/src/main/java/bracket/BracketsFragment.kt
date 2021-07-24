@@ -111,7 +111,7 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
         bracketsArray.get(index).update(viewModel)
     }
     override fun displayBracket(topText: String, bottomText: String, handler: (Winner) -> Unit) {
-        val bottomFragment = BottomSheetFragment()
+        val bottomFragment = BottomSheetFragment(topText, bottomText)
         bottomFragment.update(topText, bottomText, handler)
         bottomFragment.show(getFragmentManager()!!, "123")
     }

@@ -14,7 +14,7 @@ import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.BottomSheetLayoutBinding
 
 
-class BottomSheetFragment : BottomSheetDialogFragment() {
+class BottomSheetFragment(val team1: String, val team2: String) : BottomSheetDialogFragment() {
 
     private lateinit var binding: BottomSheetLayoutBinding
     private lateinit var viewModel: BracketsViewModel
@@ -28,7 +28,8 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             container,
             false
         )
-
+        binding.firstTeam.text = team1
+        binding.secondTeam.text = team2
         binding.firstTeam.setOnClickListener(){
             handler?.invoke(Winner.TOP)
             dismiss()
