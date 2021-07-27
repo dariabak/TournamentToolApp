@@ -23,9 +23,14 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
         }
         setTeamsNames(teamNames, bracketsArrayList)
         for(bracket in bracketsArrayList) {
-            if(bracket.team1 != "" || bracket.team2 != "") {
-                var index = findBracketIndex(bracket.bracketPosition)
-                presenter.updateBracket(bracket, index)
+            var index = findBracketIndex(bracket.bracketPosition)
+            presenter.updateBracket(bracket, index)
+            if(bracket.bracketPosition.col == 0) {
+                if (bracket.team2 == "") {
+                    updateWinner(bracketsArrayList.get(index), Winner.TOP)
+                } else if (bracket.team1 == "") {
+                    updateWinner(bracketsArrayList.get(index), Winner.TOP)
+                }
             }
         }
     }
