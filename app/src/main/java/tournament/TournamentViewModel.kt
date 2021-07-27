@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import android.widget.*
 
 class TournamentViewModel: ViewModel() {
-    var numberOfTeamsArray = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 12, 13)
+    var numberOfTeamsArray = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 20)
     var typesOfScheduleArray = arrayOf("Tournament Single Elimination")
     var teamsNames: MutableMap<Int, String> = mutableMapOf()
     var numberOfTeams = 0

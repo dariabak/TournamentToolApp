@@ -5,16 +5,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
-<variable
+    <variable
     name="BracketsFragment"
     type="bracket.BracketsFragment" />
-        <variable
-            name="BracketsViewModel"
-            type="bracket.BracketsViewModel" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <TextView
         android:id="@+id/tournament_name"
@@ -41,4 +48,6 @@
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </HorizontalScrollView>
+    </ScrollView>
 </layout>

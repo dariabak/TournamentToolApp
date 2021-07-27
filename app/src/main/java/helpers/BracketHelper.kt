@@ -67,7 +67,7 @@ class BracketHelper {
                         var topMargin2 = layoutParam2.topMargin
 
                         val newMargin = (topMargin1 + topMargin2) / 2
-                        bracket.setLayoutParams(leftMargin + (100* MyApp.density).toInt(), newMargin)
+                        bracket.setLayoutParams(leftMargin + (130* MyApp.density).toInt(), newMargin)
                     }
 
                 }
@@ -112,12 +112,5 @@ class BracketHelper {
                 j += 2
             }
         }
-
-        fun findNextBracket(bracketId: Int, brackets: ArrayList<BracketView>): Int {
-            var firstColumn = (brackets.size + 1)/2
-            var nextBracketId = floor(bracketId.toDouble()/2.0) + firstColumn
-            return nextBracketId.toInt()
-        }
-
     }
 }
