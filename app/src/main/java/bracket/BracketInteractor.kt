@@ -64,9 +64,7 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
         presenter.updateBracket(bracket, currentBracketIndex)
         if(!isLastBracket(currentBracketIndex)){
             val nextBracketIndex = getNextBracketIndex(currentBracketIndex)
-                val a = BigDecimal("$currentBracketIndex")
-                val b = BigDecimal("2")
-                if (a.rem(b).toInt() == 0) {
+                if (isTop(currentBracketIndex)) {
                     if(winner == Winner.TOP) {
                         bracketsArrayList.get(nextBracketIndex).team1 = bracket.team1
                     } else {
@@ -80,6 +78,36 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
                     }
                 }
             presenter.updateBracket(bracketsArrayList.get(nextBracketIndex), nextBracketIndex)
+            var isDone = false
+            var nextIndex = nextBracketIndex
+            var previousIndex = nextIndex
+            var isFirst = true
+            while(!isDone) {
+                if(isFirst) {
+                    bracketsArrayList.get(nextIndex).winner = Winner.NONE
+                    presenter.updateBracket(
+                        bracketsArrayList.get(nextIndex),
+                        nextIndex
+                        )
+                } else {
+                    bracketsArrayList.get(nextIndex).winner = Winner.NONE
+                    if(isTop(previousIndex)) {
+                        bracketsArrayList.get(nextIndex).team1 = ""
+                    } else {
+                        bracketsArrayList.get(nextIndex).team2 = ""
+                    }
+                    presenter.updateBracket(
+                        bracketsArrayList.get(nextIndex),
+                        nextIndex
+                    )
+                }
+                if(isLastBracket(nextIndex)){
+                    isDone = true
+                }
+                previousIndex = nextIndex
+                nextIndex = getNextBracketIndex(nextIndex)
+                isFirst = false
+            }
         }
     }
 
@@ -98,5 +126,10 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
     }
     fun isLastBracket(index: Int): Boolean {
         return bracketsArrayList.size - 1 == index
+    }
+    fun isTop(index: Int): Boolean {
+        val a = BigDecimal("$index")
+        val b = BigDecimal("2")
+        return (a.rem(b).toInt() == 0)
     }
 }
