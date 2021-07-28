@@ -1,6 +1,7 @@
 package bracket
 
 import BottomSheet.BottomSheetFragment
+import java.io.*
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -55,9 +56,8 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
         interactor.setUpBrackets(teamNames, positionArray)
 
         binding.saveButton.setOnClickListener {
-            interactor.saveTournament(args.tournamentName)
+            interactor.saveTournament(args.tournamentName, requireActivity())
         }
-
         return binding.root
     }
 
