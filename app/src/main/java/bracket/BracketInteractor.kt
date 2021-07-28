@@ -1,16 +1,17 @@
 package bracket
 
-import android.util.Log
 import bracket.model.BracketPosition
 import kotlin.math.floor
 import kotlin.math.pow
 import java.math.BigDecimal
+import org.json.*
+import bracket.BracketRepoInterface
 
 
 interface BracketInteractorInterface{
  fun setUpBrackets(teamNames: ArrayList<String>, positionArrayList: ArrayList<BracketPosition>)
  fun showBracketBottomSheet(position: BracketPosition)
-
+ fun saveTournament(tournamentName: String)
 }
 
 class BracketInteractor(val presenter: BracketPresenterInterface): BracketInteractorInterface {
@@ -131,5 +132,9 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
         val a = BigDecimal("$index")
         val b = BigDecimal("2")
         return (a.rem(b).toInt() == 0)
+    }
+
+    override fun saveTournament(tournamentName: String) {
+        BracketRepoInterface.saveTournament(tournamentName, bracketsArrayList)
     }
 }

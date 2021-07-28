@@ -104,7 +104,6 @@ class TournamentFragment: Fragment() {
 
         binding.numberOfTeamsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
                 teamNamesLayout.removeAllViews()
             }
 

@@ -54,6 +54,10 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
         createBrackets(numberOfTeams, positionArray)
         interactor.setUpBrackets(teamNames, positionArray)
 
+        binding.saveButton.setOnClickListener {
+            interactor.saveTournament(args.tournamentName)
+        }
+
         return binding.root
     }
 
