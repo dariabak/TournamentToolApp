@@ -16,7 +16,7 @@ class BracketView(context: Context, val bracketPosition: BracketPosition): Const
     private var handler: (() -> Unit)? = null
 
     init {
-        inflate(context, R.layout.bracket_layout, this)
+        //inflate(context, R.layout.bracket_layout, this)
         val inflater: LayoutInflater = LayoutInflater.from(context)
         binding = DataBindingUtil.inflate(inflater, R.layout.bracket_layout,this , true)
         binding.bracket.setOnClickListener {

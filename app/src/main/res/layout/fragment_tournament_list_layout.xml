@@ -5,12 +5,21 @@
 
     <data>
         <variable
-            name="welcomeFragment"
-            type="welcome.WelcomeFragment" />
+            name="tournamentListFragment"
+            type="tournamentList.TournamentListFragment" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tournamentsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-37dp"
+        tools:layout_editor_absoluteY="0dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_new_button"

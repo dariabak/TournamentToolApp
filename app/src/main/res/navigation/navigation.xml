@@ -3,14 +3,15 @@
              xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:id="@+id/navigation"
-            app:startDestination="@id/welcomeFragment">
+            app:startDestination="@id/tournamentListFragment">
 
     <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="welcome.WelcomeFragment"
-        android:label="WelcomeFragment">
+        android:id="@+id/tournamentListFragment"
+        android:name="tournamentList.TournamentListFragment"
+        android:label="TournamentListFragment
+">
         <action
-            android:id="@+id/action_welcome_to_tournament"
+            android:id="@+id/action_tournament_list_to_tournament"
             app:destination="@id/tournamentFragment" />
 
     </fragment>
