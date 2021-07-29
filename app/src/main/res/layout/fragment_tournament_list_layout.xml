@@ -10,16 +10,8 @@
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tournamentsList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-37dp"
-        tools:layout_editor_absoluteY="0dp">
-
-    </androidx.recyclerview.widget.RecyclerView>
+    android:layout_height="match_parent"
+    tools:context=".tournamentList.TournamentListFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_new_button"
@@ -33,6 +25,17 @@
         app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tournamentsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-37dp"
+        tools:layout_editor_absoluteY="0dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
