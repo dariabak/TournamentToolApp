@@ -5,22 +5,25 @@ import androidx.recyclerview.widget.*
 import android.view.*
 import android.widget.*
 import com.example.tournamenttool.R
+import android.util.Log
+import androidx.fragment.app.Fragment
+import bracket.Winner
 
 
+class TournamentListAdapter(private val dataSet: Array<String>, fragment: Fragment): RecyclerView.Adapter<TournamentListAdapter.ViewHolder>() {
+    val fragment: Fragment = fragment
+    var handler: ((String) -> Unit)? = null
 
-class TournamentListAdapter(private val dataSet: Array<String>): RecyclerView.Adapter<TournamentListAdapter.ViewHolder>() {
-
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, fragment: Fragment, handler: ((String) -> Unit)?) : RecyclerView.ViewHolder(view) {
         val textView: TextView
 
         init {
             // Define click listener for the ViewHolder's View.
             textView = view.findViewById(R.id.tournament_text_view)
+            view.setOnClickListener{
+                handler?.invoke(textView.text.toString())
+            }
         }
-
-//        override fun onClick(v: View) {
-//
-//        }
     }
 
     // Create new views (invoked by the layout manager)
@@ -29,7 +32,7 @@ class TournamentListAdapter(private val dataSet: Array<String>): RecyclerView.Ad
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.tournament_layout, viewGroup, false)
 
-        return ViewHolder(view)
+        return ViewHolder(view, fragment, handler)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -38,9 +41,14 @@ class TournamentListAdapter(private val dataSet: Array<String>): RecyclerView.Ad
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.textView.text = dataSet[position]
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
+
+    fun setTapHandler(handler: (String) -> Unit){
+        this.handler = handler
+    }
 
 }

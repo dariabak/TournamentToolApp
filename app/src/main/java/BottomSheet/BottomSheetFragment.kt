@@ -37,7 +37,7 @@ class BottomSheetFragment(val team1: String, val team2: String) : BottomSheetDia
         return binding.root
     }
 
-    fun update(team1: String, team2: String, handler: (Winner) -> Unit) {
+    fun update(handler: (Winner) -> Unit) {
         this.handler = handler
     }
 }

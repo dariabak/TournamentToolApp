@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_tournament_list_to_tournament"
             app:destination="@id/tournamentFragment" />
+        <action
+            android:id="@+id/action_tournamentListFragment_to_bracketsFragment"
+            app:destination="@id/bracketsFragment" />
 
     </fragment>
 

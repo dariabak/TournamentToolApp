@@ -1,6 +1,7 @@
 package tournamentList
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.*
@@ -12,6 +13,7 @@ import com.example.tournamenttool.databinding.FragmentTournamentListLayoutBindin
 import androidx.navigation.fragment.findNavController
 import tournament.TournamentViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
+import bracket.Winner
 
 class TournamentListFragment: Fragment() {
     private lateinit var binding: FragmentTournamentListLayoutBinding
@@ -38,9 +40,18 @@ class TournamentListFragment: Fragment() {
 
         linearLayoutManager = LinearLayoutManager(requireActivity())
         binding.tournamentsList.layoutManager = linearLayoutManager
-        adapter = TournamentListAdapter(list)
+        adapter = TournamentListAdapter(list,this)
         binding.tournamentsList.adapter = adapter
+
+        adapter.setTapHandler( { tournamentName ->
+            navigateToBracketsFragment(tournamentName)
+        })
 
         return binding.root
     }
+
+    fun navigateToBracketsFragment(tournamentName: String) {
+        Log.d("TournamentList", "ClickListener works $tournamentName")
+    }
+
 }
