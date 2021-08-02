@@ -46,22 +46,13 @@
             app:popUpTo="@id/bracketsFragment" />
 
         <argument android:name="teamNamesArray"
-            app:argType="string[]" />
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null"/>
         <argument
             android:name="tournamentName"
             app:argType="string"
             android:defaultValue="Tournament" />
 
     </fragment>
-<!--    <dialog-->
-<!--        android:id="@+id/bottomSheet"-->
-<!--        android:name="BottomSheet.BottomSheetFragment"-->
-<!--        tools:layout="@layout/bottom_sheet_layout" >-->
-<!--        <argument-->
-<!--            android:name="team1"-->
-<!--            app:argType="string" />-->
-<!--        <argument android:name="team2"-->
-<!--            app:argType="string" />-->
-
-<!--    </dialog>-->
 </navigation>

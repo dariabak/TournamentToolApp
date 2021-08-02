@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import tournament.TournamentViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import bracket.Winner
+import tournament.TournamentFragmentDirections
 
 class TournamentListFragment: Fragment() {
     private lateinit var binding: FragmentTournamentListLayoutBinding
@@ -52,6 +53,9 @@ class TournamentListFragment: Fragment() {
 
     fun navigateToBracketsFragment(tournamentName: String) {
         Log.d("TournamentList", "ClickListener works $tournamentName")
+        var action = TournamentListFragmentDirections.actionTournamentListFragmentToBracketsFragment()
+        action.tournamentName = tournamentName
+        findNavController().navigate(action)
     }
 
 }

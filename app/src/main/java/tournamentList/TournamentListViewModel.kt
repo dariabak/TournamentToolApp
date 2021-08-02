@@ -9,7 +9,6 @@ import android.content.Context
 class TournamentListViewModel(val repo: TournamentListRepoInterface): ViewModel() {
 
     fun getArrayListOfTournaments(): ArrayList<String>{
-
         return repo.getTournamentsNamesArrayList()
     }
 }

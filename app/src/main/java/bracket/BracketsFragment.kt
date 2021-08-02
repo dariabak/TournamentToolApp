@@ -44,19 +44,23 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
             false
         )
         layout = binding.bracketsLayout as ViewGroup
+        val service: BracketServiceInterface = BracketService(requireActivity())
+        val repo: BracketRepoInterface = BracketRepo(service)
         val presenter = BracketPresenter(this)
-        interactor = BracketInteractor(presenter)
+        interactor = BracketInteractor(presenter, repo)
         val args = BracketsFragmentArgs.fromBundle(requireArguments())
         val numberOfTeams = args.numberOfTeams
         val positionArray = BracketHelper.getBracketPosition(numberOfTeams)
-        var teamNamesArray = args.teamNamesArray.toCollection(ArrayList())
-        var teamNames: ArrayList<String> = ArrayList(teamNamesArray)
+        var teamNamesArray = args.teamNamesArray?.toCollection(ArrayList())
         binding.tournamentName.text = args.tournamentName
-        createBrackets(numberOfTeams, positionArray)
-        interactor.setUpBrackets(teamNames, positionArray)
+        if(teamNamesArray != null) {
+            var teamNames: ArrayList<String> = ArrayList(teamNamesArray)
+            createBrackets(numberOfTeams, positionArray)
+            interactor.setUpBrackets(teamNames, positionArray)
+        }
 
         binding.saveButton.setOnClickListener {
-            interactor.saveTournament(args.tournamentName, requireActivity())
+            interactor.saveTournament(args.tournamentName)
         }
         return binding.root
     }

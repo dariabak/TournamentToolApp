@@ -50,8 +50,9 @@ class TournamentFragment: Fragment() {
             teamNamesLayout.removeAllViews()
             var numberOfTeams =  binding.numberOfTeamsSpinner.selectedItem as Int
             val action =
-                tournament.TournamentFragmentDirections.actionTournamentToBrackets(viewModel.getArrayOfNames())
+                tournament.TournamentFragmentDirections.actionTournamentToBrackets()
             action.numberOfTeams = numberOfTeams
+            action.teamNamesArray = viewModel.getArrayOfNames()
             action.tournamentName = binding.nameOfTournament.text.toString()
 
             NavHostFragment.findNavController(this).navigate(action)

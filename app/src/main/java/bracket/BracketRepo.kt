@@ -6,12 +6,12 @@ import org.json.*
 import bracket.BracketServiceInterface
 
 interface BracketRepoInterface {
-    fun saveTournament(name: String, brackets: ArrayList<Bracket>, context: Context)
+    fun saveTournament(name: String, brackets: ArrayList<Bracket>)
 }
 
-class BracketRepo: BracketRepoInterface {
-val bracketService: BracketServiceInterface = BracketService()
-    override fun saveTournament(name: String, brackets: ArrayList<Bracket>, context: Context) {
+class BracketRepo(val service: BracketServiceInterface): BracketRepoInterface {
+
+    override fun saveTournament(name: String, brackets: ArrayList<Bracket>) {
         var bracketsList = mutableListOf<MutableMap<String, Any>>()
         for (i in 0 until brackets.size) {
             var mapSingleBracket = mutableMapOf<String, Any>()
@@ -28,6 +28,6 @@ val bracketService: BracketServiceInterface = BracketService()
         var jsonObject = JSONObject()
         jsonObject.put("name", name)
         jsonObject.put("brackets", bracketsList)
-        bracketService.saveTournament("tournaments.json", jsonObject, context)
+        service.saveTournament("tournaments.json", jsonObject)
     }
 }

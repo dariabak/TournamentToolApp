@@ -7,12 +7,12 @@ import java.io.*
 
 
 interface BracketServiceInterface {
-    fun saveTournament(fileName: String, jsonObject: JSONObject, context: Context)
+    fun saveTournament(fileName: String, jsonObject: JSONObject)
 }
 
-class BracketService : BracketServiceInterface {
+class BracketService(val context: Context) : BracketServiceInterface {
 
-    fun getJsonArray(fileName: String, context: Context): JSONArray {
+    fun getJsonArray(fileName: String): JSONArray {
         var json = ""
         val file = File(context.getFilesDir(), fileName)
         if (file.exists()) {
@@ -31,8 +31,8 @@ class BracketService : BracketServiceInterface {
         }
     }
 
-    override fun saveTournament(fileName: String, jsonObject: JSONObject, context: Context) {
-        var jsonArray = getJsonArray(fileName, context)
+    override fun saveTournament(fileName: String, jsonObject: JSONObject) {
+        var jsonArray = getJsonArray(fileName)
         jsonArray?.put(jsonObject)
         var jsonString = jsonArray.toString()
         val fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE)

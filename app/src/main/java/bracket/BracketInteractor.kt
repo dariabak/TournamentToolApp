@@ -11,12 +11,12 @@ import bracket.BracketRepoInterface
 interface BracketInteractorInterface{
  fun setUpBrackets(teamNames: ArrayList<String>, positionArrayList: ArrayList<BracketPosition>)
  fun showBracketBottomSheet(position: BracketPosition)
- fun saveTournament(tournamentName: String, context: Context)
+ fun saveTournament(tournamentName: String)
+ fun getTournament(tournamentName: String): ArrayList<Bracket>
 }
 
-class BracketInteractor(val presenter: BracketPresenterInterface): BracketInteractorInterface {
+class BracketInteractor(val presenter: BracketPresenterInterface, val repo: BracketRepoInterface): BracketInteractorInterface {
     var bracketsArrayList = ArrayList<Bracket>()
-    val repo: BracketRepoInterface = BracketRepo()
 
     override fun setUpBrackets(teamNames: ArrayList<String>, positionArrayList: ArrayList<BracketPosition>) {
         for(element in positionArrayList) {
@@ -135,7 +135,12 @@ class BracketInteractor(val presenter: BracketPresenterInterface): BracketIntera
         return (a.rem(b).toInt() == 0)
     }
 
-    override fun saveTournament(tournamentName: String, context: Context) {
-        repo.saveTournament(tournamentName, bracketsArrayList, context)
+    override fun saveTournament(tournamentName: String) {
+        repo.saveTournament(tournamentName, bracketsArrayList)
+    }
+
+    override fun getTournament(tournamentName: String): ArrayList<Bracket> {
+        TODO("Not yet implemented")
+        return ArrayList<Bracket>()
     }
 }
