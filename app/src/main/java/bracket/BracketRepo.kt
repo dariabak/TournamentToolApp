@@ -6,6 +6,7 @@ import org.json.*
 import java.util.*
 import com.google.gson.reflect.TypeToken
 import bracket.model.BracketPosition
+import bracket.Bracket
 
 interface BracketRepoInterface {
     fun saveTournament(name: String, brackets: ArrayList<Bracket>)
@@ -22,16 +23,8 @@ class BracketRepo(val service: BracketServiceInterface): BracketRepoInterface {
     override fun getTournament(tournamentName: String): ArrayList<Bracket> {
         val gson = Gson()
         val tournamentDTO = service.getTournament(tournamentName)
-        val bracketsArrayList = ArrayList<Bracket>()
+        var bracketsArrayList = tournamentDTO.brackets.map { Bracket(it)}
 
-        for(bracketDTO in tournamentDTO.brackets){
-            var bracketPosition = BracketPosition(bracketDTO.bracketPosition.row, bracketDTO.bracketPosition.col)
-            var bracket = Bracket(bracketPosition)
-            bracket.team1 = bracketDTO.top
-            bracket.team2 = bracketDTO.bottom
-            bracket.winner = Winner.valueOf(bracketDTO.winner)
-            bracketsArrayList.add(bracket)
-        }
-    return bracketsArrayList
+        return bracketsArrayList.toCollection(ArrayList())
     }
 }

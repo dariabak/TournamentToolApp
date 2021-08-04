@@ -40,6 +40,7 @@ class BracketService(val context: Context) : BracketServiceInterface {
     override fun saveTournament(fileName: String, tournamentDTO: TournamentDTO) {
         val gson = Gson()
         var tournamentDTOArray: ArrayList<TournamentDTO> = getJsonArray(fileName)
+        tournamentDTOArray = tournamentDTOArray.filter{ it.name != tournamentDTO.name}.toCollection(ArrayList())
         tournamentDTOArray.add(tournamentDTO)
         var jsonString = gson.toJson(tournamentDTOArray)
         val fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE)
