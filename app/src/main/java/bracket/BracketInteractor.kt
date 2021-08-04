@@ -31,7 +31,7 @@ class BracketInteractor(val presenter: BracketPresenterInterface, val repo: Brac
                 if (bracket.team2 == "") {
                     updateWinner(bracketsArrayList.get(index), Winner.TOP)
                 } else if (bracket.team1 == "") {
-                    updateWinner(bracketsArrayList.get(index), Winner.TOP)
+                    updateWinner(bracketsArrayList.get(index), Winner.BOTTOM)
                 }
             }
         }
@@ -63,17 +63,18 @@ class BracketInteractor(val presenter: BracketPresenterInterface, val repo: Brac
     fun updateWinner(bracket: Bracket, winner: Winner) {
         bracket.winner = winner
         val currentBracketIndex = findBracketIndex(bracket.bracketPosition)
+        bracketsArrayList.get(currentBracketIndex).winner = winner
         presenter.updateBracket(bracket, currentBracketIndex)
         if(!isLastBracket(currentBracketIndex)){
             val nextBracketIndex = getNextBracketIndex(currentBracketIndex)
                 if (isTop(currentBracketIndex)) {
-                    if(winner == Winner.TOP) {
+                    if(bracket.winner == Winner.TOP) {
                         bracketsArrayList.get(nextBracketIndex).team1 = bracket.team1
                     } else {
                         bracketsArrayList.get(nextBracketIndex).team1 = bracket.team2
                     }
                 } else {
-                    if(winner == Winner.BOTTOM) {
+                    if(bracket.winner == Winner.BOTTOM) {
                         bracketsArrayList.get(nextBracketIndex).team2 = bracket.team2
                     } else {
                         bracketsArrayList.get(nextBracketIndex).team2 = bracket.team1
@@ -92,7 +93,7 @@ class BracketInteractor(val presenter: BracketPresenterInterface, val repo: Brac
                         nextIndex
                         )
                 } else {
-                    bracketsArrayList.get(nextIndex).winner = Winner.NONE
+                   bracketsArrayList.get(nextIndex).winner = Winner.NONE
                     if(isTop(previousIndex)) {
                         bracketsArrayList.get(nextIndex).team1 = ""
                     } else {
@@ -151,13 +152,6 @@ class BracketInteractor(val presenter: BracketPresenterInterface, val repo: Brac
         for(bracket in bracketsArrayList) {
             var index = findBracketIndex(bracket.bracketPosition)
             presenter.updateBracket(bracket, index)
-            if(bracket.bracketPosition.col == 0) {
-                if (bracket.team2 == "") {
-                    updateWinner(bracketsArrayList.get(index), Winner.TOP)
-                } else if (bracket.team1 == "") {
-                    updateWinner(bracketsArrayList.get(index), Winner.TOP)
-                }
-            }
         }
 
     }

@@ -1,6 +1,9 @@
 package tournamentList
 
 import tournamentList.TournamentListServiceInterface
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import bracket.TournamentDTO
 
 interface TournamentListRepoInterface {
     fun getTournamentsNamesArrayList(): ArrayList<String>
@@ -10,11 +13,11 @@ class TournamentListRepo(val service: TournamentListServiceInterface): Tournamen
 
     override fun getTournamentsNamesArrayList(): ArrayList<String> {
         var tournamentsNamesArrayList = ArrayList<String>()
-        val jsonArray = service.getTournamentsNamesJSON()
+        val tournamentDTOArray = service.getTournamentsNamesJSON()
 
-        for(i in 0 until jsonArray.length()) {
-            var item = jsonArray.getJSONObject(i)
-            tournamentsNamesArrayList.add(item.get("name").toString())
+        for(i in tournamentDTOArray.size - 1 downTo 0) {
+            var tournamentDTO = tournamentDTOArray.get(i)
+            tournamentsNamesArrayList.add(tournamentDTO.name)
         }
 
         return tournamentsNamesArrayList
