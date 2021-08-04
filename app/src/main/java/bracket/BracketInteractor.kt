@@ -12,7 +12,7 @@ interface BracketInteractorInterface{
  fun setUpBrackets(teamNames: ArrayList<String>, positionArrayList: ArrayList<BracketPosition>)
  fun showBracketBottomSheet(position: BracketPosition)
  fun saveTournament(tournamentName: String)
- fun getTournament(tournamentName: String): ArrayList<Bracket>
+ fun getTournament(tournamentName: String)
 }
 
 class BracketInteractor(val presenter: BracketPresenterInterface, val repo: BracketRepoInterface): BracketInteractorInterface {
@@ -139,8 +139,26 @@ class BracketInteractor(val presenter: BracketPresenterInterface, val repo: Brac
         repo.saveTournament(tournamentName, bracketsArrayList)
     }
 
-    override fun getTournament(tournamentName: String): ArrayList<Bracket> {
-        TODO("Not yet implemented")
-        return ArrayList<Bracket>()
+    override fun getTournament(tournamentName: String){
+        bracketsArrayList = repo.getTournament(tournamentName)
+        var positionArrayList = ArrayList<BracketPosition>()
+        for(bracket in bracketsArrayList) {
+            var bracketPosition = BracketPosition(bracket.bracketPosition.row, bracket.bracketPosition.col)
+            positionArrayList.add(bracketPosition)
+        }
+        presenter.createBrackets(positionArrayList)
+
+        for(bracket in bracketsArrayList) {
+            var index = findBracketIndex(bracket.bracketPosition)
+            presenter.updateBracket(bracket, index)
+            if(bracket.bracketPosition.col == 0) {
+                if (bracket.team2 == "") {
+                    updateWinner(bracketsArrayList.get(index), Winner.TOP)
+                } else if (bracket.team1 == "") {
+                    updateWinner(bracketsArrayList.get(index), Winner.TOP)
+                }
+            }
+        }
+
     }
 }

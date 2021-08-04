@@ -6,6 +6,7 @@ import com.example.tournamenttool.R
 interface BracketPresenterInterface {
  fun updateBracket(bracket: Bracket, index: Int)
  fun presentBracket(bracket: Bracket, handler: (Winner) -> Unit)
+ fun createBrackets(bracketsPositions: ArrayList<BracketPosition>)
 }
 
 class BracketPresenter(val fragment: BracketsFragmentInterface): BracketPresenterInterface {
@@ -27,5 +28,9 @@ class BracketPresenter(val fragment: BracketsFragmentInterface): BracketPresente
 
     override fun presentBracket(bracket: Bracket, handler: (Winner) -> Unit) {
         fragment.displayBracket(bracket.team1, bracket.team2, handler)
+    }
+
+    override fun createBrackets(bracketsPositions: ArrayList<BracketPosition>) {
+        fragment.createBrackets(bracketsPositions)
     }
 }
