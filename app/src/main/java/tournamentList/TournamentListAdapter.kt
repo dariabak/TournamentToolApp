@@ -10,16 +10,18 @@ import androidx.fragment.app.Fragment
 import bracket.Winner
 
 
-class TournamentListAdapter(private val dataSet: Array<String>, fragment: Fragment): RecyclerView.Adapter<TournamentListAdapter.ViewHolder>() {
+class TournamentListAdapter(private val dataSet: MutableMap<String, String>, fragment: Fragment): RecyclerView.Adapter<TournamentListAdapter.ViewHolder>() {
     val fragment: Fragment = fragment
     var handler: ((String) -> Unit)? = null
 
     class ViewHolder(view: View, fragment: Fragment, handler: ((String) -> Unit)?) : RecyclerView.ViewHolder(view) {
         val textView: TextView
+        val dateTextView: TextView
 
         init {
             // Define click listener for the ViewHolder's View.
             textView = view.findViewById(R.id.tournament_text_view)
+            dateTextView = view.findViewById(R.id.update_date_text_view)
             view.setOnClickListener{
                 handler?.invoke(textView.text.toString())
             }
@@ -40,7 +42,10 @@ class TournamentListAdapter(private val dataSet: Array<String>, fragment: Fragme
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.textView.text = dataSet[position]
+        val keys = dataSet.keys
+        val values = dataSet.values
+        viewHolder.textView.text = keys.elementAt(position)
+        viewHolder.dateTextView.text = values.elementAt(position)
 
     }
 
