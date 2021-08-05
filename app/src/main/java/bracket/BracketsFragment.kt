@@ -57,7 +57,7 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
         }
 
         binding.saveButton.setOnClickListener {
-            interactor.saveTournament(args.tournamentName)
+            interactor.saveTournament(args.tournamentName, numberOfTeams)
         }
         return binding.root
     }

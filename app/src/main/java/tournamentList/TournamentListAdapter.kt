@@ -10,18 +10,20 @@ import androidx.fragment.app.Fragment
 import bracket.Winner
 
 
-class TournamentListAdapter(private val dataSet: MutableMap<String, String>, fragment: Fragment): RecyclerView.Adapter<TournamentListAdapter.ViewHolder>() {
+class TournamentListAdapter(private val dataSet: MutableMap<String, Pair<String, Int>>, fragment: Fragment): RecyclerView.Adapter<TournamentListAdapter.ViewHolder>() {
     val fragment: Fragment = fragment
     var handler: ((String) -> Unit)? = null
 
     class ViewHolder(view: View, fragment: Fragment, handler: ((String) -> Unit)?) : RecyclerView.ViewHolder(view) {
         val textView: TextView
         val dateTextView: TextView
+        val numberOfTeamsTextView: TextView
 
         init {
             // Define click listener for the ViewHolder's View.
             textView = view.findViewById(R.id.tournament_text_view)
             dateTextView = view.findViewById(R.id.update_date_text_view)
+            numberOfTeamsTextView = view.findViewById(R.id.number_of_teams_text_view)
             view.setOnClickListener{
                 handler?.invoke(textView.text.toString())
             }
@@ -44,8 +46,10 @@ class TournamentListAdapter(private val dataSet: MutableMap<String, String>, fra
         // contents of the view with that element
         val keys = dataSet.keys
         val values = dataSet.values
+
         viewHolder.textView.text = keys.elementAt(position)
-        viewHolder.dateTextView.text = values.elementAt(position)
+        viewHolder.dateTextView.text = values.elementAt(position).first
+       viewHolder.numberOfTeamsTextView.text = values.elementAt(position).second.toString()
 
     }
 

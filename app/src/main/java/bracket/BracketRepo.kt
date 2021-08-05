@@ -9,14 +9,14 @@ import bracket.model.BracketPosition
 import bracket.Bracket
 
 interface BracketRepoInterface {
-    fun saveTournament(name: String, brackets: ArrayList<Bracket>)
+    fun saveTournament(name: String, brackets: ArrayList<Bracket>, numberOfTeams: Int)
     fun getTournament(tournamentName: String): ArrayList<Bracket>
 }
 
 class BracketRepo(val service: BracketServiceInterface): BracketRepoInterface {
 
-    override fun saveTournament(name: String, brackets: ArrayList<Bracket>) {
-        val tournamentDTO = TournamentDTO.create(name, brackets)
+    override fun saveTournament(name: String, brackets: ArrayList<Bracket>, numberOfTeams: Int) {
+        val tournamentDTO = TournamentDTO.create(name, brackets, numberOfTeams)
         service.saveTournament("tournaments.json", tournamentDTO)
     }
 
