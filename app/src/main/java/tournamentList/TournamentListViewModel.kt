@@ -8,7 +8,7 @@ import android.content.Context
 
 class TournamentListViewModel(val repo: TournamentListRepoInterface): ViewModel() {
 
-    fun getTournamentsMap(): MutableMap<String, Pair<String, Int>> {
+    fun getTournamentsMap(): ArrayList<Tournament> {
         return repo.getTournamentsMap()
     }
 }

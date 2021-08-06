@@ -1,21 +1,21 @@
 package tournamentList
 
 interface TournamentListRepoInterface {
-    fun getTournamentsMap(): MutableMap<String, Pair<String, Int>>
+    fun getTournamentsMap(): ArrayList<Tournament>
 }
 
 class TournamentListRepo(val service: TournamentListServiceInterface): TournamentListRepoInterface {
 
-    override fun getTournamentsMap(): MutableMap<String, Pair<String, Int>> {
-        var tournamentsMap = mutableMapOf<String, Pair<String, Int>>()
+    override fun getTournamentsMap(): ArrayList<Tournament> {
+        var tournamentsArrayList = ArrayList<Tournament>()
         val tournamentDTOArray = service.getTournamentsNamesJSON()
 
         for(i in tournamentDTOArray.size - 1 downTo 0) {
             var tournamentDTO = tournamentDTOArray.get(i)
-            var dateAndNumber = Pair(tournamentDTO.date, tournamentDTO.numberOfTeams)
-            tournamentsMap.put(tournamentDTO.name, dateAndNumber)
+            var tournament = Tournament(tournamentDTO)
+            tournamentsArrayList.add(tournament)
         }
 
-        return tournamentsMap
+        return tournamentsArrayList
     }
 }

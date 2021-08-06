@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import bracket.Winner
 
 
-class TournamentListAdapter(private val dataSet: MutableMap<String, Pair<String, Int>>, fragment: Fragment): RecyclerView.Adapter<TournamentListAdapter.ViewHolder>() {
+class TournamentListAdapter(private val dataSet: ArrayList<Tournament>, fragment: Fragment): RecyclerView.Adapter<TournamentListAdapter.ViewHolder>() {
     val fragment: Fragment = fragment
     var handler: ((String) -> Unit)? = null
 
@@ -44,12 +44,10 @@ class TournamentListAdapter(private val dataSet: MutableMap<String, Pair<String,
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        val keys = dataSet.keys
-        val values = dataSet.values
 
-        viewHolder.textView.text = keys.elementAt(position)
-        viewHolder.dateTextView.text = values.elementAt(position).first
-       viewHolder.numberOfTeamsTextView.text = values.elementAt(position).second.toString()
+        viewHolder.textView.text = dataSet.get(position).name
+        viewHolder.dateTextView.text = dataSet.get(position).update
+       viewHolder.numberOfTeamsTextView.text = dataSet.get(position).numberOfTeams.toString()
 
     }
 

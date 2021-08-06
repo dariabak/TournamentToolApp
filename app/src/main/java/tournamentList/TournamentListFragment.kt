@@ -36,11 +36,11 @@ class TournamentListFragment: Fragment() {
         val service: TournamentListServiceInterface = TournamentListService(requireActivity())
         val repo: TournamentListRepoInterface = TournamentListRepo(service)
         viewModel = ViewModelProviders.of(this, TournamentListViewModelFactory(repo)).get(TournamentListViewModel::class.java)
-        var tournamentsMap = viewModel.getTournamentsMap()
+        var tournamentsArrayList = viewModel.getTournamentsMap()
 
         linearLayoutManager = LinearLayoutManager(requireActivity())
         binding.tournamentsList.layoutManager = linearLayoutManager
-        adapter = TournamentListAdapter(tournamentsMap,this)
+        adapter = TournamentListAdapter(tournamentsArrayList,this)
         binding.tournamentsList.adapter = adapter
 
         adapter.setTapHandler( { tournamentName ->
