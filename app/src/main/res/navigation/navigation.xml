@@ -55,4 +55,11 @@
             android:defaultValue="Tournament" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/emptyFragment"
+        android:name="policy.EmptyFragment"
+        android:label="EmptyFragment">
+
+    </fragment>
 </navigation>

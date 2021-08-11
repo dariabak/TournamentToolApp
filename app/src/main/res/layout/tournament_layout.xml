@@ -25,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="xyz"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/last_updated_text"
         app:layout_constraintTop_toBottomOf="@+id/tournament_text_view"
@@ -44,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Last updated: "
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tournament_text_view" />
@@ -52,7 +54,7 @@
         android:id="@+id/number_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Number of teams: "
+        android:text="Teams: "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/number_of_teams_text_view"
         app:layout_constraintTop_toTopOf="parent" />

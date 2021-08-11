@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.tournamenttool"
-        minSdkVersion 27
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -64,5 +64,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0'
 
     implementation 'com.google.code.gson:gson:2.8.7'
+    implementation 'com.otaliastudios:zoomlayout:1.8.0'
 
 }

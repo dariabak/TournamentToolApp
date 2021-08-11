@@ -8,9 +8,11 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.FragmentTournamentListLayoutBinding
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import tournament.TournamentViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import bracket.Winner
@@ -29,6 +31,7 @@ class TournamentListFragment: Fragment() {
             container,
             false
         )
+        setHasOptionsMenu(true)
 
         binding.addNewButton.setOnClickListener {
             this.findNavController().navigate(TournamentListFragmentDirections.actionTournamentListToTournament())
@@ -55,6 +58,16 @@ class TournamentListFragment: Fragment() {
         var action = TournamentListFragmentDirections.actionTournamentListFragmentToBracketsFragment()
         action.tournamentName = tournamentName
         findNavController().navigate(action)
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.menu_layout, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item!!,
+            view!!.findNavController())
+                || super.onOptionsItemSelected(item)
     }
 
 }
