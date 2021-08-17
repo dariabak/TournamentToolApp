@@ -1,22 +1,18 @@
 package tournamentList
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.*
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModel
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.FragmentTournamentListLayoutBinding
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import tournament.TournamentViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import bracket.Winner
-import tournament.TournamentFragmentDirections
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
 class TournamentListFragment: Fragment() {
     private lateinit var binding: FragmentTournamentListLayoutBinding
@@ -65,9 +61,26 @@ class TournamentListFragment: Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item!!,
-            view!!.findNavController())
-                || super.onOptionsItemSelected(item)
+        when(item.itemId) {
+            R.id.emptyFragment -> {
+                val openUrl = Intent(Intent.ACTION_VIEW)
+                openUrl.data = Uri.parse("https://www.facebook.com/")
+                startActivity(openUrl)
+                return true
+            }
+            R.id.bb -> {
+                val openUrl = Intent(Intent.ACTION_VIEW)
+                openUrl.data = Uri.parse("https://www.google.com/")
+                startActivity(openUrl)
+                return true
+            }
+            R.id.acknowledgement -> {
+                val intent = Intent(requireActivity(), OssLicensesMenuActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+        }
+        return false
     }
 
 }
