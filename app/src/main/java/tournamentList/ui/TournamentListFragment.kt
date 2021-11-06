@@ -1,4 +1,4 @@
-package tournamentList
+package tournamentList.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.FragmentTournamentListLayoutBinding
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import tournamentList.*
+import tournamentList.business.TournamentListViewModel
+import tournamentList.business.TournamentListViewModelFactory
 
 class TournamentListFragment: Fragment() {
     private lateinit var binding: FragmentTournamentListLayoutBinding
@@ -34,7 +37,8 @@ class TournamentListFragment: Fragment() {
         }
         val service: TournamentListServiceInterface = TournamentListService(requireActivity())
         val repo: TournamentListRepoInterface = TournamentListRepo(service)
-        viewModel = ViewModelProviders.of(this, TournamentListViewModelFactory(repo)).get(TournamentListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, TournamentListViewModelFactory(repo)).get(
+            TournamentListViewModel::class.java)
         var tournamentsArrayList = viewModel.getTournamentsMap()
 
         linearLayoutManager = LinearLayoutManager(requireActivity())
@@ -51,7 +55,8 @@ class TournamentListFragment: Fragment() {
 
     fun navigateToBracketsFragment(tournamentId: String) {
         Log.d("TournamentList", "ClickListener works $tournamentId")
-        var action = TournamentListFragmentDirections.actionTournamentListFragmentToBracketsFragment()
+        var action =
+            TournamentListFragmentDirections.actionTournamentListFragmentToBracketsFragment()
         action.tournamentId = tournamentId
 //        action.tournamentName = tournamentName
         findNavController().navigate(action)

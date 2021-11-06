@@ -1,10 +1,8 @@
-package tournament
+package tournamentCreator.business
 
 import androidx.lifecycle.ViewModel
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import android.widget.*
 
 class TournamentViewModel: ViewModel() {
     var numberOfTeamsArray = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 20)

@@ -1,10 +1,7 @@
-package tournamentList
+package tournamentList.business
 
 import androidx.lifecycle.ViewModel
-import org.json.JSONArray
-import org.json.JSONObject
-import java.io.*
-import android.content.Context
+import tournamentList.TournamentListRepoInterface
 
 class TournamentListViewModel(val repo: TournamentListRepoInterface): ViewModel() {
 

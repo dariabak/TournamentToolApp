@@ -1,7 +1,8 @@
 package bracket
 
-import bracket.model.BracketPosition
+import tournamentDetails.business.BracketPosition
 import com.example.tournamenttool.R
+import tournamentDetails.ui.BracketViewModel
 
 interface BracketPresenterInterface {
  fun updateBracket(bracket: Bracket, index: Int)

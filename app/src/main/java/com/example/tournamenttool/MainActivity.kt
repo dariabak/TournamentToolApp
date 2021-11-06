@@ -2,13 +2,7 @@ package com.example.tournamenttool
 
 
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import bracket.BracketView
-import kotlinx.android.synthetic.main.bracket_layout.view.*
 
 
 class MainActivity : AppCompatActivity() {

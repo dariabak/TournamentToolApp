@@ -1,6 +1,6 @@
 package bracket
 
-import bracket.model.BracketPosition
+import tournamentDetails.business.BracketPosition
 
 enum class Winner {
     TOP, BOTTOM, NONE

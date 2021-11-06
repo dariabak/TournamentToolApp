@@ -1,14 +1,13 @@
-package bracket
+package tournamentDetails.ui
 
 import android.content.Context
 import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import bracket.model.BracketPosition
+import tournamentDetails.business.BracketPosition
 import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.BracketLayoutBinding
 import androidx.databinding.DataBindingUtil
 import android.view.LayoutInflater
-import kotlinx.android.synthetic.main.bracket_layout.view.*
 
 
 class BracketView(context: Context, val bracketPosition: BracketPosition): ConstraintLayout(context) {

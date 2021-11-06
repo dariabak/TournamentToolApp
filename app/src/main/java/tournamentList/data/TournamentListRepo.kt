@@ -1,5 +1,7 @@
 package tournamentList
 
+import tournamentList.business.Tournament
+
 interface TournamentListRepoInterface {
     fun getTournamentsMap(): ArrayList<Tournament>
 }

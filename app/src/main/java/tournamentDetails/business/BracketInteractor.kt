@@ -1,11 +1,9 @@
 package bracket
 
-import android.content.Context
-import bracket.model.BracketPosition
+import tournamentDetails.business.BracketPosition
 import kotlin.math.floor
 import kotlin.math.pow
 import java.math.BigDecimal
-import bracket.BracketRepoInterface
 
 
 interface BracketInteractorInterface{

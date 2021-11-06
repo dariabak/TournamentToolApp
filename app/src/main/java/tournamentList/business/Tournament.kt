@@ -1,4 +1,4 @@
-package tournamentList
+package tournamentList.business
 
 import bracket.TournamentDTO
 

@@ -1,13 +1,11 @@
-package tournamentList
+package tournamentList.ui
 
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.*
 import android.view.*
 import android.widget.*
 import com.example.tournamenttool.R
-import android.util.Log
 import androidx.fragment.app.Fragment
-import bracket.Winner
+import tournamentList.business.Tournament
 
 
 class TournamentListAdapter(private val dataSet: ArrayList<Tournament>, fragment: Fragment): RecyclerView.Adapter<TournamentListAdapter.ViewHolder>() {

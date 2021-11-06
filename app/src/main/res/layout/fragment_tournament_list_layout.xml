@@ -6,7 +6,7 @@
     <data>
         <variable
             name="tournamentListFragment"
-            type="tournamentList.TournamentListFragment" />
+            type="tournamentList.ui.TournamentListFragment" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"

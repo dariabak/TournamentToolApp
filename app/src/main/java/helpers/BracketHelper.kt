@@ -1,14 +1,12 @@
 package helpers
 
-import bracket.BracketView
-import bracket.model.BracketPosition
+import tournamentDetails.ui.BracketView
+import tournamentDetails.business.BracketPosition
 import android.view.ViewGroup
 import kotlin.math.ceil
 import kotlin.math.log
-import kotlin.math.floor
 import kotlin.math.pow
 import kotlin.math.abs
-import kotlin.random.Random
 
 class BracketHelper {
     companion object{

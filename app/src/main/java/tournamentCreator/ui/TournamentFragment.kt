@@ -1,7 +1,5 @@
-package tournament
+package tournamentCreator.ui
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +16,7 @@ import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
 import android.view.inputmethod.EditorInfo
 import com.example.tournamenttool.databinding.FragmentTournamentLayoutBinding
+import tournamentCreator.business.TournamentViewModel
 import java.util.*
 
 
@@ -51,7 +50,7 @@ class TournamentFragment: Fragment() {
             teamNamesLayout.removeAllViews()
             var numberOfTeams =  binding.numberOfTeamsSpinner.selectedItem as Int
             val action =
-                tournament.TournamentFragmentDirections.actionTournamentToBrackets()
+                TournamentFragmentDirections.actionTournamentToBrackets()
             action.numberOfTeams = numberOfTeams
             action.teamNamesArray = viewModel.getArrayOfNames()
             action.tournamentName = binding.nameOfTournament.text.toString()

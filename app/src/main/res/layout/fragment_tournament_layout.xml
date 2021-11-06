@@ -7,7 +7,7 @@
     <data>
         <variable
             name="tournamentViewModel"
-            type="tournament.TournamentViewModel" />
+            type="tournamentCreator.business.TournamentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

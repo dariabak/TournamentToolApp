@@ -1,12 +1,7 @@
 package bracket
 
 import com.google.gson.Gson
-import com.google.gson.JsonElement
-import org.json.*
 import java.util.*
-import com.google.gson.reflect.TypeToken
-import bracket.model.BracketPosition
-import bracket.Bracket
 
 interface BracketRepoInterface {
     fun saveTournament(name: String, brackets: ArrayList<Bracket>, numberOfTeams: Int, tournamentId: String)

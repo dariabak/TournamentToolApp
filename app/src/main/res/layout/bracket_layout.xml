@@ -7,7 +7,7 @@
     <data>
         <variable
             name="BracketView"
-            type="bracket.BracketView" />
+            type="tournamentDetails.ui.BracketView" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
