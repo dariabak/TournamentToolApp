@@ -42,7 +42,6 @@ class BracketService(val context: Context) : BracketServiceInterface {
         var tournamentDTOArray: ArrayList<TournamentDTO> = getJsonArray(fileName)
         var tournamentDTOArrayCopy = tournamentDTOArray.filter{ it.id == tournamentDTO.id}.toCollection(ArrayList())
         if(!tournamentDTOArrayCopy.isEmpty()) {
-            tournamentDTO.numberOfTeams = tournamentDTOArrayCopy.get(0).numberOfTeams
             tournamentDTOArray = tournamentDTOArray.filter{ it.id != tournamentDTO.id}.toCollection(ArrayList())
         }
         tournamentDTOArray.add(tournamentDTO)

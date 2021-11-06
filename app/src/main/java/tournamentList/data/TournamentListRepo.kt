@@ -13,7 +13,7 @@ class TournamentListRepo(val service: TournamentListServiceInterface): Tournamen
         val tournamentDTOArray = service.getTournamentsNamesJSON()
 
         for(i in tournamentDTOArray.size - 1 downTo 0) {
-            var tournamentDTO = tournamentDTOArray.get(i)
+            var tournamentDTO = tournamentDTOArray[i]
             var tournament = Tournament(tournamentDTO)
             tournamentsArrayList.add(tournament)
         }

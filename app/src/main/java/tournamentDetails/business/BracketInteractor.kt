@@ -10,7 +10,7 @@ import java.math.BigDecimal
 interface BracketInteractorInterface{
  fun setUpBrackets(teamNames: ArrayList<String>, positionArrayList: ArrayList<BracketPosition>)
  fun showBracketBottomSheet(position: BracketPosition)
- fun saveTournament(tournamentName: String, numberOfTeams: Int, tournamentId: String)
+ fun saveTournament(tournamentName: String, tournamentId: String)
  fun getTournament(tournamentId: String)
 }
 
@@ -46,17 +46,17 @@ class BracketInteractor(val presenter: BracketPresenterInterface, val repo: Brac
         }
         index.shuffle()
         for(team in teamNames){
-            brackets.get(index.get(0)).team2 = team
-            index.remove(index.get(0))
+            brackets[index[0]].team2 = team
+            index.remove(index[0])
         }
     }
     override fun showBracketBottomSheet(position: BracketPosition) {
         val index = findBracketIndex(position)
         val bracket = bracketsArrayList.get(index)
 
-        presenter.presentBracket(bracket, { winner ->
+        presenter.presentBracket(bracket) { winner ->
             updateWinner(bracket, winner)
-        })
+        }
     }
 
     fun updateWinner(bracket: Bracket, winner: Winner) {
@@ -96,10 +96,10 @@ class BracketInteractor(val presenter: BracketPresenterInterface, val repo: Brac
                     if(isTop(previousIndex)) {
                         bracketsArrayList[nextIndex].team1 = ""
                     } else {
-                        bracketsArrayList.get(nextIndex).team2 = ""
+                        bracketsArrayList[nextIndex].team2 = ""
                     }
                     presenter.updateBracket(
-                        bracketsArrayList.get(nextIndex),
+                        bracketsArrayList[nextIndex],
                         nextIndex
                     )
                 }
@@ -135,8 +135,8 @@ class BracketInteractor(val presenter: BracketPresenterInterface, val repo: Brac
         return (a.rem(b).toInt() == 0)
     }
 
-    override fun saveTournament(tournamentName: String, numberOfTeams: Int, tournamentId: String) {
-        repo.saveTournament(tournamentName, bracketsArrayList, numberOfTeams, tournamentId)
+    override fun saveTournament(tournamentName: String, tournamentId: String) {
+        repo.saveTournament(tournamentName, bracketsArrayList, tournamentId)
     }
 
     override fun getTournament(tournamentId: String){

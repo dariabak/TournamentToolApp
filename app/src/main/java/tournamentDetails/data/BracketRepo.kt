@@ -7,14 +7,14 @@ import tournamentDetails.business.TournamentDetails
 import java.util.*
 
 interface BracketRepoInterface {
-    fun saveTournament(name: String, brackets: ArrayList<Bracket>, numberOfTeams: Int, tournamentId: String)
+    fun saveTournament(name: String, brackets: ArrayList<Bracket>,tournamentId: String)
     fun getTournament(tournamentId: String): TournamentDetails
 }
 
 class BracketRepo(private val service: BracketServiceInterface): BracketRepoInterface {
 
-    override fun saveTournament(name: String, brackets: ArrayList<Bracket>, numberOfTeams: Int, tournamentId: String) {
-        val tournamentDTO = TournamentDTO.create(name, brackets, numberOfTeams, tournamentId)
+    override fun saveTournament(name: String, brackets: ArrayList<Bracket>, tournamentId: String) {
+        val tournamentDTO = TournamentDTO.create(name, brackets, tournamentId)
         service.saveTournament("tournaments.json", tournamentDTO)
     }
 
