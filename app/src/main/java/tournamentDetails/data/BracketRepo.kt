@@ -1,25 +1,25 @@
-package bracket
+package tournamentDetails.data
 
-import com.google.gson.Gson
+import bracket.Bracket
+import bracket.BracketServiceInterface
+import bracket.TournamentDTO
+import tournamentDetails.business.TournamentDetails
 import java.util.*
 
 interface BracketRepoInterface {
     fun saveTournament(name: String, brackets: ArrayList<Bracket>, numberOfTeams: Int, tournamentId: String)
-    fun getTournament(tournamentId: String): ArrayList<Bracket>
+    fun getTournament(tournamentId: String): TournamentDetails
 }
 
-class BracketRepo(val service: BracketServiceInterface): BracketRepoInterface {
+class BracketRepo(private val service: BracketServiceInterface): BracketRepoInterface {
 
     override fun saveTournament(name: String, brackets: ArrayList<Bracket>, numberOfTeams: Int, tournamentId: String) {
         val tournamentDTO = TournamentDTO.create(name, brackets, numberOfTeams, tournamentId)
         service.saveTournament("tournaments.json", tournamentDTO)
     }
 
-    override fun getTournament(tournamentId: String): ArrayList<Bracket> {
-        val gson = Gson()
+    override fun getTournament(tournamentId: String): TournamentDetails {
         val tournamentDTO = service.getTournament(tournamentId)
-        var bracketsArrayList = tournamentDTO.brackets.map { Bracket(it)}
-
-        return bracketsArrayList.toCollection(ArrayList())
+        return TournamentDetails(tournamentDTO)
     }
 }

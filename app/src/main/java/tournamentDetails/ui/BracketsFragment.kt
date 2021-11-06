@@ -1,4 +1,4 @@
-package bracket
+package tournamentDetails.ui
 
 import BottomSheet.BottomSheetFragment
 import android.os.Bundle
@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import bracket.*
 import tournamentDetails.business.BracketPosition
 import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.FragmentBracketsLayoutBinding
 import helpers.BracketHelper
 import helpers.BracketLineView
-import tournamentDetails.ui.BracketViewModel
-import tournamentDetails.ui.BracketView
+import tournamentDetails.data.BracketRepo
+import tournamentDetails.data.BracketRepoInterface
 import java.util.*
 
 

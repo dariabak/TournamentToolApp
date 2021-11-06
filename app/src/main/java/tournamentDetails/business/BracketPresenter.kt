@@ -3,11 +3,13 @@ package bracket
 import tournamentDetails.business.BracketPosition
 import com.example.tournamenttool.R
 import tournamentDetails.ui.BracketViewModel
+import tournamentDetails.ui.BracketsFragmentInterface
 
 interface BracketPresenterInterface {
  fun updateBracket(bracket: Bracket, index: Int)
  fun presentBracket(bracket: Bracket, handler: (Winner) -> Unit)
  fun createBrackets(bracketsPositions: ArrayList<BracketPosition>)
+ fun updateTournamentName(tournamentName: String)
 }
 
 class BracketPresenter(val fragment: BracketsFragmentInterface): BracketPresenterInterface {
@@ -33,5 +35,9 @@ class BracketPresenter(val fragment: BracketsFragmentInterface): BracketPresente
 
     override fun createBrackets(bracketsPositions: ArrayList<BracketPosition>) {
         fragment.createBrackets(bracketsPositions)
+    }
+
+    override fun updateTournamentName(tournamentName: String) {
+        fragment.updateTournamentName(tournamentName)
     }
 }

@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/bracketsFragment"
-        android:name="bracket.BracketsFragment"
+        android:name="tournamentDetails.ui.BracketsFragment"
         android:label="BracketsFragment">
         <argument
             android:name="numberOfTeams"
