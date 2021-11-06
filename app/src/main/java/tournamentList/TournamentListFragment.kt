@@ -42,17 +42,18 @@ class TournamentListFragment: Fragment() {
         adapter = TournamentListAdapter(tournamentsArrayList,this)
         binding.tournamentsList.adapter = adapter
 
-        adapter.setTapHandler( { tournamentName ->
-            navigateToBracketsFragment(tournamentName)
-        })
-
+        adapter.setTapHandler { tournamentId ->
+            navigateToBracketsFragment(tournamentId)
+        }
+        (activity as? androidx.appcompat.app.AppCompatActivity)?.supportActionBar?.title = "Tournament Tool"
         return binding.root
     }
 
-    fun navigateToBracketsFragment(tournamentName: String) {
-        Log.d("TournamentList", "ClickListener works $tournamentName")
+    fun navigateToBracketsFragment(tournamentId: String) {
+        Log.d("TournamentList", "ClickListener works $tournamentId")
         var action = TournamentListFragmentDirections.actionTournamentListFragmentToBracketsFragment()
-        action.tournamentName = tournamentName
+        action.tournamentId = tournamentId
+//        action.tournamentName = tournamentName
         findNavController().navigate(action)
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

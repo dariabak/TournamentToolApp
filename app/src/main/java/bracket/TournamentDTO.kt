@@ -6,13 +6,14 @@ import java.util.*
 
 class TournamentDTO {
     companion object {
-        fun create(name: String, brackets: List<Bracket>, numberOfTeams: Int): TournamentDTO {
+        fun create(name: String, brackets: List<Bracket>, numberOfTeams: Int, tournamentId: String): TournamentDTO {
             val tournamentDTO = TournamentDTO()
             tournamentDTO.name = name
             tournamentDTO.brackets = brackets.map { BracketDTO.create(it)}
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             tournamentDTO.date = sdf.format(Date())
             tournamentDTO.numberOfTeams = numberOfTeams
+            tournamentDTO.id = tournamentId
             return tournamentDTO
         }
     }
@@ -28,6 +29,8 @@ class TournamentDTO {
     @SerializedName("numberOfTeams")
     var numberOfTeams: Int = 0
 
+    @SerializedName("id")
+    var id: String = ""
 }
 
 class BracketDTO {

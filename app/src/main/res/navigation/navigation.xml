@@ -53,6 +53,10 @@
             android:name="tournamentName"
             app:argType="string"
             android:defaultValue="Tournament" />
+        <argument
+            android:name="tournamentId"
+            app:argType="string"
+            android:defaultValue="0000"/>
 
     </fragment>
 

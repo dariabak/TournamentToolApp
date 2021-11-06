@@ -18,6 +18,7 @@ import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
 import android.view.inputmethod.EditorInfo
 import com.example.tournamenttool.databinding.FragmentTournamentLayoutBinding
+import java.util.*
 
 
 class TournamentFragment: Fragment() {
@@ -54,6 +55,7 @@ class TournamentFragment: Fragment() {
             action.numberOfTeams = numberOfTeams
             action.teamNamesArray = viewModel.getArrayOfNames()
             action.tournamentName = binding.nameOfTournament.text.toString()
+            action.tournamentId = UUID.randomUUID().toString()
 
             NavHostFragment.findNavController(this).navigate(action)
         }
@@ -147,6 +149,7 @@ class TournamentFragment: Fragment() {
             }
         }
 
+        (activity as? androidx.appcompat.app.AppCompatActivity)?.supportActionBar?.title = "Tournament Tool"
         return binding.root
     }
     fun EditText.setMaxLength(maxLength: Int){

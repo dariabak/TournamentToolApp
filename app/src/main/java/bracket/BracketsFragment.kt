@@ -1,25 +1,28 @@
 package bracket
 
 import BottomSheet.BottomSheetFragment
-import java.io.*
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.example.tournamenttool.R
-import helpers.BracketHelper
-import helpers.BracketLineView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.tournamenttool.databinding.FragmentBracketsLayoutBinding
-import java.util.*
+import androidx.fragment.app.Fragment
 import bracket.*
 import bracket.model.BracketPosition
+import com.example.tournamenttool.R
+import com.example.tournamenttool.databinding.FragmentBracketsLayoutBinding
+import helpers.BracketHelper
+import helpers.BracketLineView
+import java.io.*
+import java.util.*
+
 
 interface BracketsFragmentInterface {
     fun updateBracket(viewModel: BracketViewModel, index: Int)
     fun displayBracket(topText: String, bottomText: String, handler: (Winner) -> Unit)
     fun createBrackets(bracketsPositions: ArrayList<BracketPosition>)
+    fun updateTournamentName(name: String)
 }
 
 class BracketsFragment : Fragment(), BracketsFragmentInterface {
@@ -47,18 +50,19 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
         val numberOfTeams = args.numberOfTeams
         val positionArray = BracketHelper.getBracketPosition(numberOfTeams)
         var teamNamesArray = args.teamNamesArray?.toCollection(ArrayList())
-        binding.tournamentName.text = args.tournamentName
         if(teamNamesArray != null) {
             var teamNames: ArrayList<String> = ArrayList(teamNamesArray)
             createBrackets(positionArray)
+            (activity as? AppCompatActivity)?.supportActionBar?.title = args.tournamentName
             interactor.setUpBrackets(teamNames, positionArray)
         } else {
-            interactor.getTournament(args.tournamentName)
+            interactor.getTournament(args.tournamentId)
         }
 
         binding.saveButton.setOnClickListener {
-            interactor.saveTournament(args.tournamentName, numberOfTeams)
+            interactor.saveTournament(args.tournamentName, numberOfTeams, args.tournamentId)
         }
+
         return binding.root
     }
 
@@ -88,6 +92,10 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
     override fun displayBracket(topText: String, bottomText: String, handler: (Winner) -> Unit) {
         val bottomFragment = BottomSheetFragment(topText, bottomText)
         bottomFragment.update(handler)
-        bottomFragment.show(getFragmentManager()!!, "123")
+        bottomFragment.show(requireFragmentManager(), "123")
+    }
+
+    override fun updateTournamentName(name: String) {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = name
     }
 }

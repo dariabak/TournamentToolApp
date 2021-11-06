@@ -9,20 +9,20 @@ import bracket.model.BracketPosition
 import bracket.Bracket
 
 interface BracketRepoInterface {
-    fun saveTournament(name: String, brackets: ArrayList<Bracket>, numberOfTeams: Int)
-    fun getTournament(tournamentName: String): ArrayList<Bracket>
+    fun saveTournament(name: String, brackets: ArrayList<Bracket>, numberOfTeams: Int, tournamentId: String)
+    fun getTournament(tournamentId: String): ArrayList<Bracket>
 }
 
 class BracketRepo(val service: BracketServiceInterface): BracketRepoInterface {
 
-    override fun saveTournament(name: String, brackets: ArrayList<Bracket>, numberOfTeams: Int) {
-        val tournamentDTO = TournamentDTO.create(name, brackets, numberOfTeams)
+    override fun saveTournament(name: String, brackets: ArrayList<Bracket>, numberOfTeams: Int, tournamentId: String) {
+        val tournamentDTO = TournamentDTO.create(name, brackets, numberOfTeams, tournamentId)
         service.saveTournament("tournaments.json", tournamentDTO)
     }
 
-    override fun getTournament(tournamentName: String): ArrayList<Bracket> {
+    override fun getTournament(tournamentId: String): ArrayList<Bracket> {
         val gson = Gson()
-        val tournamentDTO = service.getTournament(tournamentName)
+        val tournamentDTO = service.getTournament(tournamentId)
         var bracketsArrayList = tournamentDTO.brackets.map { Bracket(it)}
 
         return bracketsArrayList.toCollection(ArrayList())

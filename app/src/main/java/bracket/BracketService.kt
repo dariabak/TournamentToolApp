@@ -40,10 +40,10 @@ class BracketService(val context: Context) : BracketServiceInterface {
     override fun saveTournament(fileName: String, tournamentDTO: TournamentDTO) {
         val gson = Gson()
         var tournamentDTOArray: ArrayList<TournamentDTO> = getJsonArray(fileName)
-        var tournamentDTOArrayCopy = tournamentDTOArray.filter{ it.name == tournamentDTO.name}.toCollection(ArrayList())
+        var tournamentDTOArrayCopy = tournamentDTOArray.filter{ it.id == tournamentDTO.id}.toCollection(ArrayList())
         if(!tournamentDTOArrayCopy.isEmpty()) {
             tournamentDTO.numberOfTeams = tournamentDTOArrayCopy.get(0).numberOfTeams
-            tournamentDTOArray = tournamentDTOArray.filter{ it.name != tournamentDTO.name}.toCollection(ArrayList())
+            tournamentDTOArray = tournamentDTOArray.filter{ it.id != tournamentDTO.id}.toCollection(ArrayList())
         }
         tournamentDTOArray.add(tournamentDTO)
         var jsonString = gson.toJson(tournamentDTOArray)
@@ -51,10 +51,10 @@ class BracketService(val context: Context) : BracketServiceInterface {
         fileOutputStream.write(jsonString.toByteArray())
     }
 
-    override fun getTournament(tournamentName: String): TournamentDTO {
+    override fun getTournament(tournamentId: String): TournamentDTO {
         var tournamentDTOArray = getJsonArray("tournaments.json")
         for(tournament in tournamentDTOArray){
-            if(tournament.name == tournamentName) {
+            if(tournament.id == tournamentId) {
                 return tournament
             }
         }

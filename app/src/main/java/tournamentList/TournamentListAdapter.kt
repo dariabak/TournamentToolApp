@@ -18,14 +18,16 @@ class TournamentListAdapter(private val dataSet: ArrayList<Tournament>, fragment
         val textView: TextView
         val dateTextView: TextView
         val numberOfTeamsTextView: TextView
+        var id: String
 
         init {
             // Define click listener for the ViewHolder's View.
             textView = view.findViewById(R.id.tournament_text_view)
             dateTextView = view.findViewById(R.id.update_date_text_view)
             numberOfTeamsTextView = view.findViewById(R.id.number_of_teams_text_view)
+            id = ""
             view.setOnClickListener{
-                handler?.invoke(textView.text.toString())
+                handler?.invoke(id)
             }
         }
     }
@@ -47,7 +49,8 @@ class TournamentListAdapter(private val dataSet: ArrayList<Tournament>, fragment
 
         viewHolder.textView.text = dataSet.get(position).name
         viewHolder.dateTextView.text = dataSet.get(position).update
-       viewHolder.numberOfTeamsTextView.text = dataSet.get(position).numberOfTeams.toString()
+        viewHolder.numberOfTeamsTextView.text = dataSet.get(position).numberOfTeams.toString()
+        viewHolder.id = dataSet.get(position).id
 
     }
 
