@@ -1,39 +1,44 @@
 package bracket
 
 import tournamentDetails.business.BracketPosition
+import tournamentDetails.business.TournamentDetails
 import tournamentDetails.data.BracketRepoInterface
+import tournamentList.business.Tournament
 import kotlin.math.floor
 import kotlin.math.pow
 import java.math.BigDecimal
 
 
 interface BracketInteractorInterface{
- fun setUpBrackets(teamNames: ArrayList<String>, positionArrayList: ArrayList<BracketPosition>)
+ fun setUpBrackets(teamNames: ArrayList<String>, positionArrayList: ArrayList<BracketPosition>, tournamentName: String, tournamentId: String)
  fun showBracketBottomSheet(position: BracketPosition)
- fun saveTournament(tournamentName: String, tournamentId: String)
+ fun saveTournament()
  fun getTournament(tournamentId: String)
 }
 
-class BracketInteractor(val presenter: BracketPresenterInterface, val repo: BracketRepoInterface): BracketInteractorInterface {
+class BracketInteractor(private val presenter: BracketPresenterInterface, private val repo: BracketRepoInterface): BracketInteractorInterface {
     var bracketsArrayList = ArrayList<Bracket>()
+    lateinit var tournament: TournamentDetails
 
-    override fun setUpBrackets(teamNames: ArrayList<String>, positionArrayList: ArrayList<BracketPosition>) {
+    override fun setUpBrackets(teamNames: ArrayList<String>, positionArrayList: ArrayList<BracketPosition>, tournamentName: String, tournamentId: String) {
         for(element in positionArrayList) {
             var bracket = Bracket(element)
             bracketsArrayList.add(bracket)
         }
-        setTeamsNames(teamNames, bracketsArrayList)
-        for(bracket in bracketsArrayList) {
+        tournament = TournamentDetails(bracketsArrayList, tournamentName, tournamentId)
+        setTeamsNames(teamNames, tournament.bracketsArrayList)
+        for(bracket in tournament.bracketsArrayList) {
             var index = findBracketIndex(bracket.bracketPosition)
             presenter.updateBracket(bracket, index)
             if(bracket.bracketPosition.col == 0) {
                 if (bracket.team2 == "") {
-                    updateWinner(bracketsArrayList.get(index), Winner.TOP)
+                    updateWinner(tournament.bracketsArrayList.get(index), Winner.TOP)
                 } else if (bracket.team1 == "") {
-                    updateWinner(bracketsArrayList.get(index), Winner.BOTTOM)
+                    updateWinner(tournament.bracketsArrayList.get(index), Winner.BOTTOM)
                 }
             }
         }
+
     }
     private fun setTeamsNames(teamNames: ArrayList<String>, brackets: ArrayList<Bracket>) {
         var index = ArrayList<Int>()
@@ -52,54 +57,54 @@ class BracketInteractor(val presenter: BracketPresenterInterface, val repo: Brac
     }
     override fun showBracketBottomSheet(position: BracketPosition) {
         val index = findBracketIndex(position)
-        val bracket = bracketsArrayList.get(index)
+        val bracket = tournament.bracketsArrayList.get(index)
 
         presenter.presentBracket(bracket) { winner ->
             updateWinner(bracket, winner)
         }
     }
 
-    fun updateWinner(bracket: Bracket, winner: Winner) {
+    private fun updateWinner(bracket: Bracket, winner: Winner) {
         bracket.winner = winner
         val currentBracketIndex = findBracketIndex(bracket.bracketPosition)
-        bracketsArrayList.get(currentBracketIndex).winner = winner
+        tournament.bracketsArrayList.get(currentBracketIndex).winner = winner
         presenter.updateBracket(bracket, currentBracketIndex)
         if(!isLastBracket(currentBracketIndex)){
             val nextBracketIndex = getNextBracketIndex(currentBracketIndex)
                 if (isTop(currentBracketIndex)) {
                     if(bracket.winner == Winner.TOP) {
-                        bracketsArrayList.get(nextBracketIndex).team1 = bracket.team1
+                        tournament.bracketsArrayList.get(nextBracketIndex).team1 = bracket.team1
                     } else {
-                        bracketsArrayList.get(nextBracketIndex).team1 = bracket.team2
+                        tournament.bracketsArrayList.get(nextBracketIndex).team1 = bracket.team2
                     }
                 } else {
                     if(bracket.winner == Winner.BOTTOM) {
-                        bracketsArrayList.get(nextBracketIndex).team2 = bracket.team2
+                       tournament.bracketsArrayList.get(nextBracketIndex).team2 = bracket.team2
                     } else {
-                        bracketsArrayList.get(nextBracketIndex).team2 = bracket.team1
+                        tournament.bracketsArrayList.get(nextBracketIndex).team2 = bracket.team1
                     }
                 }
-            presenter.updateBracket(bracketsArrayList.get(nextBracketIndex), nextBracketIndex)
+            presenter.updateBracket(tournament.bracketsArrayList.get(nextBracketIndex), nextBracketIndex)
             var isDone = false
             var nextIndex = nextBracketIndex
             var previousIndex = nextIndex
             var isFirst = true
             while(!isDone) {
                 if(isFirst) {
-                    bracketsArrayList.get(nextIndex).winner = Winner.NONE
+                    tournament.bracketsArrayList.get(nextIndex).winner = Winner.NONE
                     presenter.updateBracket(
-                        bracketsArrayList.get(nextIndex),
+                        tournament.bracketsArrayList.get(nextIndex),
                         nextIndex
                         )
                 } else {
-                   bracketsArrayList[nextIndex].winner = Winner.NONE
+                   tournament.bracketsArrayList[nextIndex].winner = Winner.NONE
                     if(isTop(previousIndex)) {
-                        bracketsArrayList[nextIndex].team1 = ""
+                        tournament.bracketsArrayList[nextIndex].team1 = ""
                     } else {
-                        bracketsArrayList[nextIndex].team2 = ""
+                        tournament.bracketsArrayList[nextIndex].team2 = ""
                     }
                     presenter.updateBracket(
-                        bracketsArrayList[nextIndex],
+                        tournament.bracketsArrayList[nextIndex],
                         nextIndex
                     )
                 }
@@ -113,46 +118,45 @@ class BracketInteractor(val presenter: BracketPresenterInterface, val repo: Brac
         }
     }
 
-    fun findBracketIndex(position: BracketPosition): Int {
+    private fun findBracketIndex(position: BracketPosition): Int {
         var previousColumnsRowCounter = 0.0
         for(i in 0 until position.col){
-            previousColumnsRowCounter += (bracketsArrayList.size + 1) / 2.0.pow(i)/2
+            previousColumnsRowCounter += (tournament.bracketsArrayList.size + 1) / 2.0.pow(i)/2
         }
         return previousColumnsRowCounter.toInt() + position.row
     }
 
     fun getNextBracketIndex(index: Int): Int {
-        var firstColumn = (bracketsArrayList.size + 1)/2
+        var firstColumn = (tournament.bracketsArrayList.size + 1)/2
         var nextBracketId = floor(index.toDouble()/2.0) + firstColumn
         return nextBracketId.toInt()
     }
     private fun isLastBracket(index: Int): Boolean {
-        return bracketsArrayList.size - 1 == index
+        return tournament.bracketsArrayList.size - 1 == index
     }
-    fun isTop(index: Int): Boolean {
+    private fun isTop(index: Int): Boolean {
         val a = BigDecimal("$index")
         val b = BigDecimal("2")
         return (a.rem(b).toInt() == 0)
     }
 
-    override fun saveTournament(tournamentName: String, tournamentId: String) {
-        repo.saveTournament(tournamentName, bracketsArrayList, tournamentId)
+    override fun saveTournament() {
+        repo.saveTournament(tournament)
     }
 
     override fun getTournament(tournamentId: String){
-        val tournament = repo.getTournament(tournamentId)
-        bracketsArrayList = tournament.bracketArrayList
+        tournament = repo.getTournament(tournamentId)
         val positionArrayList = ArrayList<BracketPosition>()
-        for(bracket in bracketsArrayList) {
+        for(bracket in tournament.bracketsArrayList) {
             val bracketPosition = BracketPosition(bracket.bracketPosition.row, bracket.bracketPosition.col)
             positionArrayList.add(bracketPosition)
         }
         presenter.createBrackets(positionArrayList)
 
-        for(bracket in bracketsArrayList) {
+        for(bracket in tournament.bracketsArrayList) {
             val index = findBracketIndex(bracket.bracketPosition)
             presenter.updateBracket(bracket, index)
         }
-        presenter.updateTournamentName(tournament.tournamentName)
+        presenter.updateTournamentName(tournament.name)
     }
 }

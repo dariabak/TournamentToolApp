@@ -1,20 +1,22 @@
 package bracket
 
 import com.google.gson.annotations.SerializedName
+import tournamentDetails.business.TournamentDetails
 import java.text.SimpleDateFormat
 import java.util.*
 
 class TournamentDTO {
     companion object {
-        fun create(name: String, brackets: List<Bracket>, tournamentId: String): TournamentDTO {
+        fun createFromTournament(tournament: TournamentDetails): TournamentDTO {
             val tournamentDTO = TournamentDTO()
-            tournamentDTO.name = name
-            tournamentDTO.brackets = brackets.map { BracketDTO.create(it)}
+            tournamentDTO.name = tournament.name
+            tournamentDTO.brackets = tournament.bracketsArrayList.map { BracketDTO.create(it)}
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             tournamentDTO.date = sdf.format(Date())
-            tournamentDTO.id = tournamentId
+            tournamentDTO.id = tournament.id
             return tournamentDTO
         }
+
     }
     @SerializedName("name")
     var name: String = ""

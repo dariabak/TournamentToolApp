@@ -55,13 +55,13 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
             var teamNames: ArrayList<String> = ArrayList(teamNamesArray)
             createBrackets(positionArray)
             (activity as? AppCompatActivity)?.supportActionBar?.title = args.tournamentName
-            interactor.setUpBrackets(teamNames, positionArray)
+            interactor.setUpBrackets(teamNames, positionArray, args.tournamentName, args.tournamentId)
         } else {
             interactor.getTournament(args.tournamentId)
         }
 
         binding.saveButton.setOnClickListener {
-            interactor.saveTournament(args.tournamentName, args.tournamentId)
+            interactor.saveTournament()
         }
 
         return binding.root
@@ -72,7 +72,7 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
         for(element in bracketsPositions) {
            val bracket = BracketView(requireActivity(), element)
            bracketsArray.add(bracket)
-           bracket.setId(bracketsArray.size - 1)
+            bracket.id = bracketsArray.size - 1
            layout.addView(bracket)
            bracket.addClickHandler {
                interactor.showBracketBottomSheet(bracket.bracketPosition)
@@ -88,7 +88,7 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
     }
 
     override fun updateBracket(viewModel: BracketViewModel, index: Int) {
-        bracketsArray.get(index).update(viewModel)
+        bracketsArray[index].update(viewModel)
     }
     override fun displayBracket(topText: String, bottomText: String, handler: (Winner) -> Unit) {
         val bottomFragment = BottomSheetFragment(topText, bottomText)
