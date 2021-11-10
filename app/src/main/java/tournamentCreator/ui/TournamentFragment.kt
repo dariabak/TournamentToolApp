@@ -89,15 +89,15 @@ class TournamentFragment: Fragment() {
                         editText.setText(viewModel.teamsNames.get(i))
                         teamNamesLayout.addView(editText)
                         editText.doAfterTextChanged {
-                            viewModel.teamsNames.put(i, it.toString())
+                            viewModel.teamsNames[i] = it.toString()
                         }
                     }
                     else {
                         editText.doAfterTextChanged {
-                            viewModel.teamsNames.put(i, it.toString())
+                            viewModel.teamsNames[i] = it.toString()
                         }
                         var num = i + 1
-                        editText.setHint("Team $num")
+                        editText.hint = "Team $num"
                         teamNamesLayout.addView(editText)
                     }
                 }
@@ -130,12 +130,12 @@ class TournamentFragment: Fragment() {
                             editText.setText(viewModel.teamsNames.get(i))
                             teamNamesLayout.addView(editText)
                             editText.doAfterTextChanged {
-                                viewModel.teamsNames.put(i, it.toString())
+                                viewModel.teamsNames[i] = it.toString()
                             }
                         }
                         else {
                             editText.doAfterTextChanged {
-                                viewModel.teamsNames.put(i, it.toString())
+                                viewModel.teamsNames[i] = it.toString()
                             }
                             var num = i + 1
                             editText.setHint("Team $num")
@@ -151,7 +151,7 @@ class TournamentFragment: Fragment() {
         (activity as? androidx.appcompat.app.AppCompatActivity)?.supportActionBar?.title = "Tournament Tool"
         return binding.root
     }
-    fun EditText.setMaxLength(maxLength: Int){
+    private fun EditText.setMaxLength(maxLength: Int){
         filters = arrayOf<InputFilter>(LengthFilter(maxLength))
     }
 }

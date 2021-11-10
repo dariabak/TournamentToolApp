@@ -1,4 +1,4 @@
-package tournamentList
+package tournamentList.data
 
 import tournamentList.business.Tournament
 
@@ -6,7 +6,7 @@ interface TournamentListRepoInterface {
     fun getTournamentsMap(): ArrayList<Tournament>
 }
 
-class TournamentListRepo(val service: TournamentListServiceInterface): TournamentListRepoInterface {
+class TournamentListRepo(private val service: TournamentListServiceInterface): TournamentListRepoInterface {
 
     override fun getTournamentsMap(): ArrayList<Tournament> {
         var tournamentsArrayList = ArrayList<Tournament>()

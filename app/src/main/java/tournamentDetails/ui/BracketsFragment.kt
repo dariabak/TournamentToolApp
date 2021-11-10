@@ -2,22 +2,21 @@ package tournamentDetails.ui
 
 import BottomSheet.BottomSheetFragment
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import bracket.*
-import tournamentDetails.business.BracketPosition
 import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.FragmentBracketsLayoutBinding
 import helpers.BracketHelper
 import helpers.BracketLineView
+import tournamentDetails.business.*
 import tournamentDetails.data.BracketRepo
 import tournamentDetails.data.BracketRepoInterface
+import tournamentDetails.data.BracketService
+import tournamentDetails.data.BracketServiceInterface
 import java.util.*
 
 

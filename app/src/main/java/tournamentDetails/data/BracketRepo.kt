@@ -1,10 +1,6 @@
 package tournamentDetails.data
 
-import bracket.Bracket
-import bracket.BracketServiceInterface
-import bracket.TournamentDTO
 import tournamentDetails.business.TournamentDetails
-import java.util.*
 
 interface BracketRepoInterface {
     fun saveTournament(tournament: TournamentDetails)

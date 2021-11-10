@@ -1,6 +1,7 @@
-package bracket
+package tournamentDetails.data
 
 import com.google.gson.annotations.SerializedName
+import tournamentDetails.business.Bracket
 import tournamentDetails.business.TournamentDetails
 import java.text.SimpleDateFormat
 import java.util.*
@@ -10,7 +11,7 @@ class TournamentDTO {
         fun createFromTournament(tournament: TournamentDetails): TournamentDTO {
             val tournamentDTO = TournamentDTO()
             tournamentDTO.name = tournament.name
-            tournamentDTO.brackets = tournament.bracketsArrayList.map { BracketDTO.create(it)}
+            tournamentDTO.brackets = tournament.bracketsArrayList.map { BracketDTO.create(it) }
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             tournamentDTO.date = sdf.format(Date())
             tournamentDTO.id = tournament.id

@@ -1,7 +1,7 @@
 package tournamentList.business
 
-import bracket.BracketDTO
-import bracket.TournamentDTO
+import tournamentDetails.data.BracketDTO
+import tournamentDetails.data.TournamentDTO
 
 class Tournament {
     constructor(tournamentDTO: TournamentDTO){

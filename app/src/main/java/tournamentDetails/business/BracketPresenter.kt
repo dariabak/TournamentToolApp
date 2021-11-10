@@ -1,6 +1,5 @@
-package bracket
+package tournamentDetails.business
 
-import tournamentDetails.business.BracketPosition
 import com.example.tournamenttool.R
 import tournamentDetails.ui.BracketViewModel
 import tournamentDetails.ui.BracketsFragmentInterface
@@ -12,7 +11,7 @@ interface BracketPresenterInterface {
  fun updateTournamentName(tournamentName: String)
 }
 
-class BracketPresenter(val fragment: BracketsFragmentInterface): BracketPresenterInterface {
+class BracketPresenter(private val fragment: BracketsFragmentInterface): BracketPresenterInterface {
     override fun updateBracket(bracket: Bracket, index: Int) {
         var topColor = R.color.black
         var bottomColor = R.color.black

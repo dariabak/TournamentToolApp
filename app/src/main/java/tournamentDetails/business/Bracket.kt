@@ -1,6 +1,6 @@
-package bracket
+package tournamentDetails.business
 
-import tournamentDetails.business.BracketPosition
+import tournamentDetails.data.BracketDTO
 
 enum class Winner {
     TOP, BOTTOM, NONE

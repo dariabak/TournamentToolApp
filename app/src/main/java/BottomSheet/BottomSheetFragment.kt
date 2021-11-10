@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import bracket.Winner
+import tournamentDetails.business.Winner
 import com.example.tournamenttool.R
 import com.example.tournamenttool.databinding.BottomSheetLayoutBinding
 

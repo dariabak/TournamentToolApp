@@ -39,19 +39,15 @@ class TournamentViewModel: ViewModel() {
     }
 
     fun checkTournamentNameLength() {
-        if(tournamentName.length == 0) {
-            _canContinue.value = false
-        } else {
-            _canContinue.value = true
-        }
+        _canContinue.value = tournamentName.isNotEmpty()
     }
 
     fun getArrayOfNames(): Array<String> {
-        var array = Array<String>(numberOfTeams, {i -> "a"})
+        var array = Array<String>(numberOfTeams) { i -> "a" }
         for(i in 0 until numberOfTeams){
             if(teamsNames.containsKey(i)) {
-                if(teamsNames.get(i) != ""){
-                    array[i] = teamsNames.get(i).toString()
+                if(teamsNames[i] != ""){
+                    array[i] = teamsNames[i].toString()
                 } else {
                     var num = i + 1
                     array[i] = "Team $num"

@@ -1,9 +1,6 @@
-package bracket
+package tournamentDetails.business
 
-import tournamentDetails.business.BracketPosition
-import tournamentDetails.business.TournamentDetails
 import tournamentDetails.data.BracketRepoInterface
-import tournamentList.business.Tournament
 import kotlin.math.floor
 import kotlin.math.pow
 import java.math.BigDecimal
@@ -16,7 +13,8 @@ interface BracketInteractorInterface{
  fun getTournament(tournamentId: String)
 }
 
-class BracketInteractor(private val presenter: BracketPresenterInterface, private val repo: BracketRepoInterface): BracketInteractorInterface {
+class BracketInteractor(private val presenter: BracketPresenterInterface, private val repo: BracketRepoInterface):
+    BracketInteractorInterface {
     var bracketsArrayList = ArrayList<Bracket>()
     lateinit var tournament: TournamentDetails
 
@@ -32,9 +30,9 @@ class BracketInteractor(private val presenter: BracketPresenterInterface, privat
             presenter.updateBracket(bracket, index)
             if(bracket.bracketPosition.col == 0) {
                 if (bracket.team2 == "") {
-                    updateWinner(tournament.bracketsArrayList.get(index), Winner.TOP)
+                    updateWinner(tournament.bracketsArrayList[index], Winner.TOP)
                 } else if (bracket.team1 == "") {
-                    updateWinner(tournament.bracketsArrayList.get(index), Winner.BOTTOM)
+                    updateWinner(tournament.bracketsArrayList[index], Winner.BOTTOM)
                 }
             }
         }
@@ -45,7 +43,7 @@ class BracketInteractor(private val presenter: BracketPresenterInterface, privat
         teamNames.shuffle()
         var bracketsInFirstColumn = (brackets.size + 1)/2
         for(i in bracketsInFirstColumn - 1 downTo 0) {
-            brackets.get(i).team1 = teamNames.get(i)
+            brackets[i].team1 = teamNames[i]
             teamNames.removeAt(i)
             index.add(i)
         }
@@ -57,7 +55,7 @@ class BracketInteractor(private val presenter: BracketPresenterInterface, privat
     }
     override fun showBracketBottomSheet(position: BracketPosition) {
         val index = findBracketIndex(position)
-        val bracket = tournament.bracketsArrayList.get(index)
+        val bracket = tournament.bracketsArrayList[index]
 
         presenter.presentBracket(bracket) { winner ->
             updateWinner(bracket, winner)
@@ -73,27 +71,27 @@ class BracketInteractor(private val presenter: BracketPresenterInterface, privat
             val nextBracketIndex = getNextBracketIndex(currentBracketIndex)
                 if (isTop(currentBracketIndex)) {
                     if(bracket.winner == Winner.TOP) {
-                        tournament.bracketsArrayList.get(nextBracketIndex).team1 = bracket.team1
+                        tournament.bracketsArrayList[nextBracketIndex].team1 = bracket.team1
                     } else {
-                        tournament.bracketsArrayList.get(nextBracketIndex).team1 = bracket.team2
+                        tournament.bracketsArrayList[nextBracketIndex].team1 = bracket.team2
                     }
                 } else {
                     if(bracket.winner == Winner.BOTTOM) {
-                       tournament.bracketsArrayList.get(nextBracketIndex).team2 = bracket.team2
+                       tournament.bracketsArrayList[nextBracketIndex].team2 = bracket.team2
                     } else {
-                        tournament.bracketsArrayList.get(nextBracketIndex).team2 = bracket.team1
+                        tournament.bracketsArrayList[nextBracketIndex].team2 = bracket.team1
                     }
                 }
-            presenter.updateBracket(tournament.bracketsArrayList.get(nextBracketIndex), nextBracketIndex)
+            presenter.updateBracket(tournament.bracketsArrayList[nextBracketIndex], nextBracketIndex)
             var isDone = false
             var nextIndex = nextBracketIndex
             var previousIndex = nextIndex
             var isFirst = true
             while(!isDone) {
                 if(isFirst) {
-                    tournament.bracketsArrayList.get(nextIndex).winner = Winner.NONE
+                    tournament.bracketsArrayList[nextIndex].winner = Winner.NONE
                     presenter.updateBracket(
-                        tournament.bracketsArrayList.get(nextIndex),
+                        tournament.bracketsArrayList[nextIndex],
                         nextIndex
                         )
                 } else {
@@ -127,7 +125,7 @@ class BracketInteractor(private val presenter: BracketPresenterInterface, privat
         return previousColumnsRowCounter.toInt() + position.row
     }
 
-    fun getNextBracketIndex(index: Int): Int {
+    private fun getNextBracketIndex(index: Int): Int {
         var firstColumn = (tournament.bracketsArrayList.size + 1)/2
         var nextBracketId = floor(index.toDouble()/2.0) + firstColumn
         return nextBracketId.toInt()

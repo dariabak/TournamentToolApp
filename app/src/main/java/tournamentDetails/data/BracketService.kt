@@ -1,10 +1,8 @@
-package bracket
+package tournamentDetails.data
 
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import org.json.JSONArray
-import org.json.JSONObject
 import java.io.*
 
 
@@ -15,10 +13,10 @@ interface BracketServiceInterface {
 
 class BracketService(val context: Context) : BracketServiceInterface {
 
-    fun getJsonArray(fileName: String): ArrayList<TournamentDTO> {
+    private fun getJsonArray(fileName: String): ArrayList<TournamentDTO> {
         var json = ""
         val gson = Gson()
-        val file = File(context.getFilesDir(), fileName)
+        val file = File(context.filesDir, fileName)
         if (file.exists()) {
             val inputStream = context.openFileInput(fileName)
             val inputStreamReader = InputStreamReader(inputStream)
@@ -30,8 +28,7 @@ class BracketService(val context: Context) : BracketServiceInterface {
             }
             json = stringBuilder.toString()
             val tournamentDtoType = object : TypeToken<ArrayList<TournamentDTO>>() {}.type
-            val tournamentDTOArray: ArrayList<TournamentDTO> = gson.fromJson(json, tournamentDtoType)
-            return tournamentDTOArray
+            return gson.fromJson(json, tournamentDtoType)
         } else {
             return ArrayList<TournamentDTO>()
         }
@@ -41,7 +38,7 @@ class BracketService(val context: Context) : BracketServiceInterface {
         val gson = Gson()
         var tournamentDTOArray: ArrayList<TournamentDTO> = getJsonArray(fileName)
         var tournamentDTOArrayCopy = tournamentDTOArray.filter{ it.id == tournamentDTO.id}.toCollection(ArrayList())
-        if(!tournamentDTOArrayCopy.isEmpty()) {
+        if(tournamentDTOArrayCopy.isNotEmpty()) {
             tournamentDTOArray = tournamentDTOArray.filter{ it.id != tournamentDTO.id}.toCollection(ArrayList())
         }
         tournamentDTOArray.add(tournamentDTO)
