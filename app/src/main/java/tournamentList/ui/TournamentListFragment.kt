@@ -53,12 +53,11 @@ class TournamentListFragment: Fragment() {
         return binding.root
     }
 
-    fun navigateToBracketsFragment(tournamentId: String) {
-        Log.d("TournamentList", "ClickListener works $tournamentId")
+    private fun navigateToBracketsFragment(tournamentId: String) {
+
         var action =
             TournamentListFragmentDirections.actionTournamentListFragmentToBracketsFragment()
         action.tournamentId = tournamentId
-//        action.tournamentName = tournamentName
         findNavController().navigate(action)
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -68,7 +67,7 @@ class TournamentListFragment: Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.emptyFragment -> {
+            R.id.privacy_policy -> {
                 val openUrl = Intent(Intent.ACTION_VIEW)
                 openUrl.data = Uri.parse("https://www.facebook.com/")
                 startActivity(openUrl)

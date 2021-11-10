@@ -2,9 +2,11 @@ package tournamentDetails.ui
 
 import BottomSheet.BottomSheetFragment
 import android.os.Bundle
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -31,7 +33,6 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
     private lateinit var layout: ViewGroup
     private lateinit var binding: FragmentBracketsLayoutBinding
     private var bracketsArray = ArrayList<BracketView>()
-    private var nextBracketId = 0
     private lateinit var interactor: BracketInteractorInterface
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,22 +47,17 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
         val repo: BracketRepoInterface = BracketRepo(service)
         val presenter = BracketPresenter(this)
         interactor = BracketInteractor(presenter, repo)
-
         val args = BracketsFragmentArgs.fromBundle(requireArguments())
-        val numberOfTeams = args.numberOfTeams
-        val positionArray = BracketHelper.getBracketPosition(numberOfTeams)
         var teamNamesArray = args.teamNamesArray?.toCollection(ArrayList())
         if(teamNamesArray != null) {
+            val numberOfTeams = args.numberOfTeams
+            val positionArray = BracketHelper.getBracketPosition(numberOfTeams)
             var teamNames: ArrayList<String> = ArrayList(teamNamesArray)
             createBrackets(positionArray)
             (activity as? AppCompatActivity)?.supportActionBar?.title = args.tournamentName
             interactor.setUpBrackets(teamNames, positionArray, args.tournamentName, args.tournamentId)
         } else {
             interactor.getTournament(args.tournamentId)
-        }
-
-        binding.saveButton.setOnClickListener {
-            interactor.saveTournament()
         }
 
         return binding.root
@@ -99,4 +95,5 @@ class BracketsFragment : Fragment(), BracketsFragmentInterface {
     override fun updateTournamentName(name: String) {
         (activity as? AppCompatActivity)?.supportActionBar?.title = name
     }
+
 }

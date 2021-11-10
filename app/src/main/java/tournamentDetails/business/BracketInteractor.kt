@@ -38,7 +38,7 @@ class BracketInteractor(private val presenter: BracketPresenterInterface, privat
                 }
             }
         }
-
+        saveTournament()
     }
     private fun setTeamsNames(teamNames: ArrayList<String>, brackets: ArrayList<Bracket>) {
         var index = ArrayList<Int>()
@@ -116,6 +116,7 @@ class BracketInteractor(private val presenter: BracketPresenterInterface, privat
                 isFirst = false
             }
         }
+        saveTournament()
     }
 
     private fun findBracketIndex(position: BracketPosition): Int {
