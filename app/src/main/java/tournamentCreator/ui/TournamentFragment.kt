@@ -86,7 +86,7 @@ class TournamentFragment: Fragment() {
                     editText.imeOptions = EditorInfo.IME_ACTION_NEXT
 
                     if (viewModel.teamsNames.containsKey(i)) {
-                        editText.setText(viewModel.teamsNames.get(i))
+                        editText.setText(viewModel.teamsNames[i])
                         teamNamesLayout.addView(editText)
                         editText.doAfterTextChanged {
                             viewModel.teamsNames[i] = it.toString()
@@ -127,7 +127,7 @@ class TournamentFragment: Fragment() {
                         editText.setSingleLine()
                         editText.imeOptions = EditorInfo.IME_ACTION_NEXT
                         if (viewModel.teamsNames.containsKey(i)) {
-                            editText.setText(viewModel.teamsNames.get(i))
+                            editText.setText(viewModel.teamsNames[i])
                             teamNamesLayout.addView(editText)
                             editText.doAfterTextChanged {
                                 viewModel.teamsNames[i] = it.toString()
@@ -138,7 +138,7 @@ class TournamentFragment: Fragment() {
                                 viewModel.teamsNames[i] = it.toString()
                             }
                             var num = i + 1
-                            editText.setHint("Team $num")
+                            editText.hint = "Team $num"
                             teamNamesLayout.addView(editText)
                         }
                     }

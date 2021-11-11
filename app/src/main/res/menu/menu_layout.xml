@@ -5,9 +5,9 @@
         android:id="@+id/privacy_policy"
         android:title="Privacy Policy" />
     <item
-        android:id="@+id/bb"
-        android:title="emptyFragment" />
+        android:id="@+id/terms_and_conditions"
+        android:title="Terms and Conditions" />
     <item
         android:id="@+id/acknowledgement"
-        android:title="acknowledgement"/>
+        android:title="Acknowledgement"/>
 </menu>

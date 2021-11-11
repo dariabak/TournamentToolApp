@@ -75,7 +75,7 @@ class TournamentListFragment: Fragment() {
                 startActivity(openUrl)
                 return true
             }
-            R.id.bb -> {
+            R.id.terms_and_conditions -> {
                 val openUrl = Intent(Intent.ACTION_VIEW)
                 openUrl.data = Uri.parse("https://www.google.com/")
                 startActivity(openUrl)
