@@ -71,13 +71,13 @@ class TournamentListFragment: Fragment() {
         when(item.itemId) {
             R.id.privacy_policy -> {
                 val openUrl = Intent(Intent.ACTION_VIEW)
-                openUrl.data = Uri.parse("https://www.facebook.com/")
+                openUrl.data = Uri.parse("https://www.szafulski.com/tournamenttool/privacy-policy/")
                 startActivity(openUrl)
                 return true
             }
             R.id.terms_and_conditions -> {
                 val openUrl = Intent(Intent.ACTION_VIEW)
-                openUrl.data = Uri.parse("https://www.google.com/")
+                openUrl.data = Uri.parse("https://www.szafulski.com/tournamenttool/terms-and-conditions/")
                 startActivity(openUrl)
                 return true
             }
